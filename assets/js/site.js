@@ -133,3 +133,163 @@
 		fallback(value);
 	});
 }());
+
+/* --- the field: a map of the work that stirs under the cursor -------- */
+
+(function () {
+	var panel = document.querySelector('[data-field]');
+	if (!panel) {
+		return;
+	}
+
+	var canvas = panel.querySelector('canvas');
+	var ctx = canvas && canvas.getContext('2d');
+	if (!ctx) {
+		return;
+	}
+
+	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	var clusters = [
+		{ x: 0.26, y: 0.24 },
+		{ x: 0.66, y: 0.18 },
+		{ x: 0.30, y: 0.62 },
+		{ x: 0.70, y: 0.58 },
+		{ x: 0.48, y: 0.86 }
+	];
+
+	var dots = [];
+	var width = 0;
+	var height = 0;
+	var pointer = { x: -999, y: -999, active: false };
+	var raf = 0;
+	var last = 0;
+	var onScreen = true;
+
+	function gaussian() {
+		var u = 0;
+		var v = 0;
+		while (u === 0) { u = Math.random(); }
+		while (v === 0) { v = Math.random(); }
+		return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+	}
+
+	function seed() {
+		dots = [];
+		clusters.forEach(function (cluster) {
+			for (var i = 0; i < 52; i += 1) {
+				var hx = (cluster.x + gaussian() * 0.042) * width;
+				var hy = (cluster.y + gaussian() * 0.042) * height;
+				dots.push({ hx: hx, hy: hy, x: hx, y: hy, vx: 0, vy: 0 });
+			}
+		});
+	}
+
+	function render(step) {
+		ctx.clearRect(0, 0, width, height);
+
+		for (var i = 0; i < dots.length; i += 1) {
+			var dot = dots[i];
+
+			if (step && !reduced) {
+				dot.vx += (dot.hx - dot.x) * 0.012;
+				dot.vy += (dot.hy - dot.y) * 0.012;
+
+				if (pointer.active) {
+					var dx = dot.x - pointer.x;
+					var dy = dot.y - pointer.y;
+					var distance2 = dx * dx + dy * dy;
+					var radius = 92;
+
+					if (distance2 < radius * radius && distance2 > 0.01) {
+						var distance = Math.sqrt(distance2);
+						var force = (1 - distance / radius) * 2.4;
+						dot.vx += (dx / distance) * force;
+						dot.vy += (dy / distance) * force;
+					}
+				}
+
+				dot.vx *= 0.9;
+				dot.vy *= 0.9;
+				dot.x += dot.vx;
+				dot.y += dot.vy;
+			}
+
+			ctx.beginPath();
+			ctx.arc(dot.x, dot.y, 1.7, 0, Math.PI * 2);
+			ctx.fillStyle = 'rgba(16, 18, 21, 0.55)';
+			ctx.fill();
+		}
+	}
+
+	function frame(now) {
+		raf = 0;
+		if (!onScreen) {
+			return;
+		}
+		render(now - last);
+		last = now;
+		raf = window.requestAnimationFrame(frame);
+	}
+
+	function start() {
+		if (raf || reduced || !onScreen) {
+			return;
+		}
+		last = window.performance.now();
+		raf = window.requestAnimationFrame(frame);
+	}
+
+	function resize() {
+		var rect = panel.getBoundingClientRect();
+		var dpr = Math.min(window.devicePixelRatio || 1, 2);
+		width = rect.width;
+		height = rect.height;
+		canvas.width = Math.round(width * dpr);
+		canvas.height = Math.round(height * dpr);
+		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		seed();
+		render(0);
+	}
+
+	panel.addEventListener('pointermove', function (event) {
+		var rect = panel.getBoundingClientRect();
+		pointer.x = event.clientX - rect.left;
+		pointer.y = event.clientY - rect.top;
+		pointer.active = true;
+		start();
+	});
+
+	panel.addEventListener('pointerleave', function () {
+		pointer.active = false;
+	});
+
+	if ('ResizeObserver' in window) {
+		new ResizeObserver(resize).observe(panel);
+	} else {
+		window.addEventListener('resize', resize);
+	}
+
+	if ('IntersectionObserver' in window) {
+		new IntersectionObserver(function (entries) {
+			onScreen = entries[0].isIntersecting;
+			if (onScreen) {
+				start();
+			}
+		}, { threshold: 0.1 }).observe(panel);
+	}
+
+	document.addEventListener('visibilitychange', function () {
+		if (document.hidden && raf) {
+			window.cancelAnimationFrame(raf);
+			raf = 0;
+		} else if (!document.hidden) {
+			start();
+		}
+	});
+
+	resize();
+	if (reduced) {
+		render(0);
+	}
+}());
