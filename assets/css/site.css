@@ -28,6 +28,7 @@ html {
 
 body {
 	margin: 0;
+	padding-top: 4.25rem;
 	background: var(--bone);
 	color: var(--ink);
 	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
