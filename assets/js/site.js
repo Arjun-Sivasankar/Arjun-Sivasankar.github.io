@@ -1,5 +1,5 @@
-/* Small progressive enhancements: current year, copy-email button.
-   The page is fully usable without this file. */
+/* Running head, active nav, copy confirmation.
+   The page is complete without this file. */
 (function () {
 	'use strict';
 
@@ -8,44 +8,105 @@
 		year.textContent = new Date().getFullYear();
 	}
 
+	/* --- running head + current section ------------------------------- */
+
+	var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[href^="#"]'));
+	var head = document.getElementById('running-head');
+
+	var sections = links.map(function (link) {
+		return {
+			link: link,
+			name: link.textContent.trim(),
+			section: document.querySelector(link.getAttribute('href'))
+		};
+	}).filter(function (item) {
+		return item.section;
+	});
+
+	if (head && 'IntersectionObserver' in window && sections.length) {
+		var ratios = new Map();
+
+		var observer = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				ratios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0);
+			});
+
+			var best = null;
+			var bestRatio = 0;
+
+			sections.forEach(function (item) {
+				var value = ratios.get(item.section) || 0;
+				if (value > bestRatio) {
+					bestRatio = value;
+					best = item;
+				}
+			});
+
+			sections.forEach(function (item) {
+				if (item === best) {
+					item.link.setAttribute('aria-current', 'true');
+				} else {
+					item.link.removeAttribute('aria-current');
+				}
+			});
+
+			head.textContent = best ? best.name : '';
+		}, {
+			rootMargin: '-25% 0px -55% 0px',
+			threshold: [0, 0.2, 0.5, 0.9]
+		});
+
+		sections.forEach(function (item) {
+			observer.observe(item.section);
+		});
+	}
+
+	/* --- copy email ---------------------------------------------------- */
+
 	var button = document.querySelector('.copy');
-	if (!button) {
+	var stamp = document.getElementById('stamp');
+	if (!button || !stamp) {
 		return;
 	}
 
-	var original = button.textContent;
+	var hideTimer;
 
-	function done() {
-		button.textContent = 'Copied';
-		window.setTimeout(function () {
-			button.textContent = original;
-		}, 1800);
+	function confirm() {
+		stamp.textContent = 'Copied';
+		stamp.classList.add('is-shown');
+		window.clearTimeout(hideTimer);
+		hideTimer = window.setTimeout(function () {
+			stamp.classList.remove('is-shown');
+		}, 2200);
+	}
+
+	function fallback(value) {
+		var field = document.createElement('textarea');
+		field.value = value;
+		field.setAttribute('readonly', '');
+		field.style.position = 'absolute';
+		field.style.left = '-9999px';
+		document.body.appendChild(field);
+		field.select();
+		try {
+			document.execCommand('copy');
+			confirm();
+		} catch (error) {
+			stamp.textContent = 'Press copy';
+		}
+		document.body.removeChild(field);
 	}
 
 	button.addEventListener('click', function () {
 		var value = button.getAttribute('data-copy') || '';
 
 		if (navigator.clipboard && navigator.clipboard.writeText) {
-			navigator.clipboard.writeText(value).then(done, fallback);
+			navigator.clipboard.writeText(value).then(confirm, function () {
+				fallback(value);
+			});
 			return;
 		}
-		fallback();
 
-		function fallback() {
-			var field = document.createElement('textarea');
-			field.value = value;
-			field.setAttribute('readonly', '');
-			field.style.position = 'absolute';
-			field.style.left = '-9999px';
-			document.body.appendChild(field);
-			field.select();
-			try {
-				document.execCommand('copy');
-				done();
-			} catch (error) {
-				button.textContent = value;
-			}
-			document.body.removeChild(field);
-		}
+		fallback(value);
 	});
 }());
