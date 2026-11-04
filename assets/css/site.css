@@ -29,6 +29,7 @@ html {
 
 body {
 	margin: 0;
+	padding-top: 64px;
 	background: var(--bg);
 	color: var(--fg);
 	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -133,14 +134,14 @@ a:hover { text-decoration: underline; }
 	gap: 0.2rem;
 }
 
-.nav a {
+.nav a:not(.btn) {
 	padding: 0.45rem 0.7rem;
 	border-radius: 8px;
 	color: var(--muted);
 	font-size: 0.86rem;
 	transition: color 0.2s var(--ease), background-color 0.2s var(--ease);
 }
-.nav a:hover {
+.nav a:not(.btn):hover {
 	color: var(--fg);
 	background: rgba(255, 255, 255, 0.05);
 	text-decoration: none;
