@@ -1,5 +1,5 @@
-/* Running head, active nav, copy confirmation.
-   The page is complete without this file. */
+/* Running head, active nav, chart reveal, copy confirmation.
+   Everything here is enhancement: the page reads fine without it. */
 (function () {
 	'use strict';
 
@@ -51,14 +51,36 @@
 			});
 
 			head.textContent = best ? best.name : '';
-		}, {
-			rootMargin: '-25% 0px -55% 0px',
-			threshold: [0, 0.2, 0.5, 0.9]
-		});
+		}, { rootMargin: '-25% 0px -55% 0px', threshold: [0, 0.2, 0.5, 0.9] });
 
 		sections.forEach(function (item) {
 			observer.observe(item.section);
 		});
+	}
+
+	/* --- chart: draws once when it comes into view --------------------- */
+
+	var charts = Array.prototype.slice.call(document.querySelectorAll('[data-chart]'));
+
+	if (charts.length) {
+		if (!('IntersectionObserver' in window)) {
+			charts.forEach(function (chart) {
+				chart.classList.add('is-visible');
+			});
+		} else {
+			var chartObserver = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						chartObserver.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.4 });
+
+			charts.forEach(function (chart) {
+				chartObserver.observe(chart);
+			});
+		}
 	}
 
 	/* --- copy email ---------------------------------------------------- */
@@ -93,6 +115,7 @@
 			confirm();
 		} catch (error) {
 			stamp.textContent = 'Press copy';
+			stamp.classList.add('is-shown');
 		}
 		document.body.removeChild(field);
 	}

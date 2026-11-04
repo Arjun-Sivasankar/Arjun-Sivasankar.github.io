@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Arjun Sivasankar">
-	<rect width="64" height="64" fill="#f4f5f6"/>
-	<rect x="0.5" y="0.5" width="63" height="63" fill="none" stroke="#d7dce1"/>
-	<text x="32" y="42" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="27" fill="#15191e">AS</text>
-	<rect x="24" y="48" width="16" height="2" fill="#a32020"/>
+	<rect width="64" height="64" fill="#f0f1ef"/>
+	<rect width="64" height="7" fill="#efe22f"/>
+	<text x="32" y="42" text-anchor="middle" font-family="system-ui, 'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="#101215">AS</text>
 </svg>
