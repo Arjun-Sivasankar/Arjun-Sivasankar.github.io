@@ -1,4 +1,4 @@
-// Misc.
+﻿// Misc.
 	$misc: (
 		z-index-base:				10000
 	);
@@ -21,7 +21,7 @@
 
 // Font.
 	$font: (
-		family:						('Source Sans Pro', sans-serif),
+		family: (system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif),
 		family-fixed:				('Courier New', monospace),
 		weight:						300,
 		weight-bold:				600,

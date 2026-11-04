@@ -1,5 +1,4 @@
-@import url(fontawesome-all.min.css);
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300italic,600italic,300,600");
+﻿@import url(fontawesome-all.min.css);
 
 /*
 	Dimension by HTML5 UP
@@ -141,7 +140,7 @@ input, select, textarea {
 
 	body, input, select, textarea {
 		color: #ffffff;
-		font-family: "Source Sans Pro", sans-serif;
+		font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 		font-weight: 300;
 		font-size: 1rem;
 		line-height: 1.65;
@@ -1656,3 +1655,111 @@ input, select, textarea {
 		body.is-preload #footer {
 			opacity: 0;
 		}
+
+
+/* ==========================================================================
+   Site additions â€” Arjun Sivasankar
+   RÃ©sumÃ© entries, project cards, skills grid.
+   ========================================================================== */
+
+	.cv {
+		margin-top: 1.5rem;
+	}
+
+	.cv-item {
+		margin: 0 0 2rem 0;
+		padding: 0 0 1.75rem 0;
+		border-bottom: solid 1px rgba(255, 255, 255, 0.12);
+	}
+
+	.cv-item:last-child {
+		margin-bottom: 0;
+		padding-bottom: 0;
+		border-bottom: 0;
+	}
+
+	.cv-item h4 {
+		margin: 0;
+		font-size: 1.1rem;
+		letter-spacing: 0.05rem;
+		line-height: 1.45;
+	}
+
+	.cv-org {
+		display: block;
+		margin-top: 0.4rem;
+		font-weight: 300;
+		font-size: 0.8rem;
+		letter-spacing: 0.15rem;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.cv-meta {
+		margin: 0.5rem 0 1rem 0;
+		font-size: 0.7rem;
+		letter-spacing: 0.12rem;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	.cv-item ul {
+		margin: 0 0 0 1.1rem;
+		padding: 0;
+		list-style: disc;
+	}
+
+	.cv-item li {
+		margin-bottom: 0.6rem;
+		font-size: 0.9rem;
+		line-height: 1.65;
+		padding-left: 0.15rem;
+	}
+
+	.cv-item p {
+		margin-bottom: 0.75rem;
+		font-size: 0.9rem;
+		line-height: 1.65;
+	}
+
+	.cv-item p:last-child {
+		margin-bottom: 0;
+	}
+
+	.skills {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem 2rem;
+		margin-top: 1.5rem;
+	}
+
+	.skill-group h4 {
+		margin: 0 0 0.35rem 0;
+		font-size: 0.7rem;
+		letter-spacing: 0.15rem;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.skill-group p {
+		margin: 0;
+		font-size: 0.85rem;
+		line-height: 1.6;
+	}
+
+	@media screen and (min-width: 737px) {
+
+		.skills {
+			grid-template-columns: 1fr 1fr;
+		}
+
+	}
+
+	article h3 {
+		margin-top: 2.5rem;
+		margin-bottom: 0;
+	}
+
+	article h3:first-of-type {
+		margin-top: 1.5rem;
+	}
