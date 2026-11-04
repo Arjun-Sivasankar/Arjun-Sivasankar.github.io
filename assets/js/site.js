@@ -177,10 +177,18 @@
 	function seed() {
 		dots = [];
 		clusters.forEach(function (cluster) {
-			for (var i = 0; i < 52; i += 1) {
-				var hx = (cluster.x + gaussian() * 0.042) * width;
-				var hy = (cluster.y + gaussian() * 0.042) * height;
-				dots.push({ hx: hx, hy: hy, x: hx, y: hy, vx: 0, vy: 0 });
+			for (var i = 0; i < 78; i += 1) {
+				var hx = (cluster.x + gaussian() * 0.028) * width;
+				var hy = (cluster.y + gaussian() * 0.028) * height;
+				dots.push({
+					hx: hx,
+					hy: hy,
+					x: hx,
+					y: hy,
+					vx: 0,
+					vy: 0,
+					a: 0.3 + Math.random() * 0.42
+				});
 			}
 		});
 	}
@@ -216,8 +224,8 @@
 			}
 
 			ctx.beginPath();
-			ctx.arc(dot.x, dot.y, 1.7, 0, Math.PI * 2);
-			ctx.fillStyle = 'rgba(16, 18, 21, 0.55)';
+			ctx.arc(dot.x, dot.y, 1.4, 0, Math.PI * 2);
+			ctx.fillStyle = 'rgba(16, 18, 21, ' + dot.a.toFixed(2) + ')';
 			ctx.fill();
 		}
 	}
