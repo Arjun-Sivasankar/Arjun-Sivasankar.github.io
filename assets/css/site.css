@@ -713,3 +713,18 @@ h1 .line > span {
 	.section, .contact { border-color: #ccc; padding-block: 1.2rem; }
 	.card, .cell, .grid { border-color: #ddd; background: #fff; }
 }
+
+/* ---------------------------------------------------------------- webgl fallback */
+
+.hero::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	background:
+		radial-gradient(60% 50% at 62% 30%, rgba(124, 242, 212, 0.16), transparent 70%),
+		radial-gradient(90% 60% at 50% 100%, rgba(124, 242, 212, 0.10), transparent 70%);
+	pointer-events: none;
+}
+
+.no-webgl #scene { display: none; }
