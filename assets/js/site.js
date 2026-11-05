@@ -125,9 +125,9 @@
 	}
 
 	function drawSolid(time) {
-		var cx = width * 0.74 + pointer.x * 26;
-		var cy = height * 0.42 + pointer.y * 20;
-		var radius = Math.min(width, height) * 0.24;
+		var cx = width * 0.6 + pointer.x * 26;
+		var cy = height * 0.3 + pointer.y * 20;
+		var radius = Math.min(width, height) * 0.2;
 
 		var ay = time * 0.18 + pointer.x * 0.7;
 		var ax = Math.sin(time * 0.28) * 0.16 + pointer.y * 0.5;
