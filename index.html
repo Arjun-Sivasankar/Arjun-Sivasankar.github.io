@@ -7,8 +7,8 @@
 
 <meta name="description" content="AI Engineer building agents, retrieval and speech systems that run on hardware you control. M.Sc. TU Dresden, IEEE-published, granted patent.">
 <meta name="author" content="Arjun Sivasankar">
-<meta name="color-scheme" content="light">
-<meta name="theme-color" content="#f0f1ef">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07080a">
 <link rel="canonical" href="https://arjun-sivasankar.github.io/">
 
 <meta property="og:type" content="profile">
@@ -31,6 +31,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/SpaceGrotesk-Variable.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="stylesheet" href="/assets/css/site.css">
 <script>document.documentElement.className += ' js';</script>
 
@@ -53,69 +54,48 @@
   "sameAs": [
     "https://github.com/Arjun-Sivasankar",
     "https://www.linkedin.com/in/arjun-sivasankar-381380155/"
-  ],
-  "knowsAbout": [
-    "Retrieval-augmented generation", "Large language models", "LoRA fine-tuning",
-    "Speech recognition", "Multi-agent systems", "Evaluation", "PyTorch", "Kubernetes"
   ]
 }
 </script>
 </head>
 <body>
 
-<a class="skip" href="#main">Skip to content</a>
+<a class="skip" href="#work">Skip to the record</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
 
-<header class="masthead">
+<header class="bar">
 	<div class="shell">
-		<a class="wordmark" href="#top">Arjun Sivasankar</a>
-		<span class="running-head" id="running-head" aria-hidden="true"></span>
+		<a class="mark" href="#top">Arjun Sivasankar</a>
+		<span class="bar-meta">AI Engineer — Trier</span>
 		<nav class="nav" aria-label="Sections">
-			<a href="#work">Work</a>
-			<a href="#projects">Projects</a>
-			<a href="#skills">Skills</a>
-			<a href="#research">Research</a>
-			<a class="mail" href="mailto:arjun.sivasankar@gmail.com">Email</a>
+			<a href="#work">work</a>
+			<a href="#projects">projects</a>
+			<a href="#research">research</a>
+			<a class="cta" href="mailto:arjun.sivasankar@gmail.com">email</a>
 		</nav>
 	</div>
 </header>
 
-<main id="main">
+<main id="top">
 
-	<section class="hero" id="top">
-		<div class="shell hero-grid">
-			<div class="hero-copy">
-				<h1 class="display">Arjun Sivasankar</h1>
-				<p class="lede">I build AI systems that run on hardware you control — agents, retrieval and speech, <mark>measured well enough to trust</mark>.</p>
-				<p class="hero-facts">
-					<span>AI Engineer at Docs4D</span>
-					<span>M.Sc. TU Dresden, 1.7</span>
-					<span>IEEE 2024</span>
-					<span>Patent 2024</span>
-				</p>
-				<p class="hero-links">
-					<a href="mailto:arjun.sivasankar@gmail.com">Email</a>
-					<a href="https://github.com/Arjun-Sivasankar">GitHub</a>
-					<a href="https://www.linkedin.com/in/arjun-sivasankar-381380155/">LinkedIn</a>
-				</p>
+	<section class="hero">
+		<div class="shell">
+			<p class="kicker">Arjun Sivasankar · AI engineer · agents, retrieval, speech</p>
+			<form class="search" role="search" action="#work" onsubmit="return false;">
+				<label class="sr" for="q">Search the record</label>
+				<input id="q" name="q" type="search" placeholder="search the record" autocomplete="off" spellcheck="false" aria-describedby="hints">
+			</form>
+			<div class="hints" id="hints">
+				<button type="button" data-q="voice agent">voice agent</button>
+				<button type="button" data-q="reranking">reranking</button>
+				<button type="button" data-q="self-hosted">self-hosted</button>
+				<button type="button" data-q="mdr">MDR</button>
+				<button type="button" data-q="thesis">thesis</button>
+				<button type="button" data-q="patent">patent</button>
 			</div>
-			<div class="hero-visual">
-				<div class="field" data-field>
-					<canvas id="field-canvas" aria-hidden="true"></canvas>
-					<span class="field-label" style="--x:26%;--y:31%">generation</span>
-					<span class="field-label" style="--x:66%;--y:25%">retrieval</span>
-					<span class="field-label" style="--x:30%;--y:69%">speech</span>
-					<span class="field-label" style="--x:70%;--y:65%">infrastructure</span>
-					<span class="field-label" style="--x:48%;--y:93%">evaluation</span>
-				</div>
-				<figure class="portrait-chip">
-					<picture>
-						<source type="image/webp" srcset="/assets/img/portrait-440.webp 440w, /assets/img/portrait-880.webp 880w" sizes="132px">
-						<img src="/assets/img/portrait.jpg" width="883" height="1040" alt="Portrait of Arjun Sivasankar" fetchpriority="high">
-					</picture>
-					<figcaption>Trier, 2026</figcaption>
-				</figure>
-			</div>
+			<div class="results" id="results" aria-live="polite" hidden></div>
 		</div>
 	</section>
 
@@ -126,77 +106,75 @@
 				<span class="count">5 roles</span>
 			</div>
 
-			<div class="rail">
-				<article class="entry">
-					<div class="entry-when">2026 — now</div>
-					<div class="entry-body">
-						<h3>AI Engineer</h3>
-						<p class="entry-org">Docs4D <span class="place">— Trier, Germany</span></p>
+			<article class="entry">
+				<div class="entry-when">2026 — now</div>
+				<div class="entry-body">
+					<h3>AI Engineer</h3>
+					<p class="entry-org">Docs4D — Trier, Germany</p>
+					<ul>
+						<li><strong>Self-hosted inference.</strong> Fine-tuned an open-weight LLM with LoRA and served it through vLLM on in-house GPUs, so sensitive text never reaches a third-party API.</li>
+						<li><strong>Retrieval, end to end.</strong> Parsing, hierarchical chunking, Qdrant hybrid search and cross-encoder reranking; batching the reranker brought retrieval under one second without losing recall.</li>
+						<li><strong>Agents in production.</strong> A multi-agent assistant in LangGraph for chat and voice, built with a German university hospital, with a separate validation layer around generation for EU MDR conformity.</li>
+						<li><strong>Voice.</strong> A real-time conversational agent — speech-to-text, LLM, text-to-speech — shipped into the Guardian iOS and Android app, plus a streaming Parakeet pipeline with Whisper correction and diarization.</li>
+					</ul>
+					<details class="more">
+						<summary>Also on this work</summary>
 						<ul>
-							<li><strong>Self-hosted inference.</strong> Fine-tuned an open-weight LLM with LoRA and served it through vLLM on in-house GPUs, so sensitive text never reaches a third-party API.</li>
-							<li><strong>Retrieval, end to end.</strong> Parsing, hierarchical chunking, Qdrant hybrid search and cross-encoder reranking; batching the reranker brought retrieval under one second without losing recall.</li>
-							<li><strong>Agents in production.</strong> A multi-agent assistant in LangGraph for chat and voice, built with a German university hospital, with a separate validation layer around generation for EU MDR conformity.</li>
-							<li><strong>Speech.</strong> A real-time conversational agent — speech-to-text, LLM, text-to-speech — shipped into the Guardian iOS and Android app, plus a streaming Parakeet pipeline with Whisper correction and diarization.</li>
+							<li><strong>DocScan.</strong> OCR service for patient-uploaded documents, routed to the practitioners at their hospital organization.</li>
+							<li><strong>Frontline.</strong> Medical dashboard in Next.js integrating the transcription and OCR products.</li>
+							<li><strong>Evaluation.</strong> Langfuse tracing, MLflow experiment tracking and RAGAS scoring.</li>
+							<li><strong>Data layer.</strong> SQL migrations and row-level security for a Supabase backend.</li>
 						</ul>
-						<details class="more">
-							<summary>Also on this work</summary>
-							<ul>
-								<li><strong>DocScan.</strong> OCR service for patient-uploaded documents, routed to the practitioners at their hospital organization.</li>
-								<li><strong>Frontline.</strong> Medical dashboard in Next.js integrating the transcription and OCR products.</li>
-								<li><strong>Evaluation.</strong> Langfuse tracing, MLflow experiment tracking and RAGAS scoring; A/B tests on agent prompts and model choice.</li>
-								<li><strong>Data layer.</strong> SQL migrations and row-level security for the Supabase production backend.</li>
-							</ul>
-						</details>
-					</div>
-				</article>
+					</details>
+				</div>
+			</article>
 
-				<article class="entry">
-					<div class="entry-when">2024 — 2025</div>
-					<div class="entry-body">
-						<h3>Applied AI Intern</h3>
-						<p class="entry-org">Vodafone Group Services <span class="place">— Germany</span></p>
-						<ul>
-							<li>Built LLM agents on Microsoft Azure with enterprise customers, from experiment to integration into their products and the Vodafone Assist platform.</li>
-							<li>Built an on-premise transcription service for 6G-HEALTH that transcribes, separates speakers and summarizes conversations in real time.</li>
-						</ul>
-					</div>
-				</article>
+			<article class="entry">
+				<div class="entry-when">2024 — 2025</div>
+				<div class="entry-body">
+					<h3>Applied AI Intern</h3>
+					<p class="entry-org">Vodafone Group Services — Germany</p>
+					<ul>
+						<li>Built LLM agents on Microsoft Azure with enterprise customers, from experiment to integration into their products and the Vodafone Assist platform.</li>
+						<li>Built an on-premise transcription service for 6G-HEALTH that transcribes, separates speakers and summarizes conversations in real time.</li>
+					</ul>
+				</div>
+			</article>
 
-				<article class="entry">
-					<div class="entry-when">2023 — 2024</div>
-					<div class="entry-body">
-						<h3>Student Research Assistant</h3>
-						<p class="entry-org">Vodafone Chair, TU Dresden <span class="place">— Dresden</span></p>
-						<ul>
-							<li>PyTorch models forecasting memory-access intervals in hardware accelerators from time series; co-authored the resulting IEEE ACDSA 2024 paper.</li>
-							<li>Quantization-aware training pipelines to measure accuracy at sub-8-bit precision.</li>
-						</ul>
-					</div>
-				</article>
+			<article class="entry">
+				<div class="entry-when">2023 — 2024</div>
+				<div class="entry-body">
+					<h3>Student Research Assistant</h3>
+					<p class="entry-org">Vodafone Chair, TU Dresden — Dresden</p>
+					<ul>
+						<li>PyTorch models forecasting memory-access intervals in hardware accelerators from time series; co-authored the resulting IEEE ACDSA 2024 paper.</li>
+						<li>Quantization-aware training pipelines to measure accuracy at sub-8-bit precision.</li>
+					</ul>
+				</div>
+			</article>
 
-				<article class="entry">
-					<div class="entry-when">2021 — 2022</div>
-					<div class="entry-body">
-						<h3>Engineer</h3>
-						<p class="entry-org">L&amp;T Technology Services <span class="place">— India</span></p>
-						<ul>
-							<li>Design Structure Matrices across a wind-turbine architecture, and the Python network-analysis tool that builds them from correlation data.</li>
-							<li>PLM data extraction from Windchill with Selenium; Power BI dashboards for validation.</li>
-						</ul>
-					</div>
-				</article>
+			<article class="entry">
+				<div class="entry-when">2021 — 2022</div>
+				<div class="entry-body">
+					<h3>Engineer</h3>
+					<p class="entry-org">L&amp;T Technology Services — India</p>
+					<ul>
+						<li>Design Structure Matrices across a wind-turbine architecture, and the Python network-analysis tool that builds them from correlation data.</li>
+						<li>PLM data extraction from Windchill with Selenium; Power BI dashboards for validation.</li>
+					</ul>
+				</div>
+			</article>
 
-				<article class="entry">
-					<div class="entry-when">2020</div>
-					<div class="entry-body">
-						<h3>Automotive Research Intern</h3>
-						<p class="entry-org">Gannet Engineering <span class="place">— Bangalore</span></p>
-						<ul>
-							<li>Design-of-experiments test planning and regression versus machine-learning models of NOx and soot; the selected model met a target of under 10% prediction error.</li>
-						</ul>
-					</div>
-				</article>
-			</div>
+			<article class="entry">
+				<div class="entry-when">2020</div>
+				<div class="entry-body">
+					<h3>Automotive Research Intern</h3>
+					<p class="entry-org">Gannet Engineering — Bangalore</p>
+					<ul>
+						<li>Design-of-experiments test planning and regression versus machine-learning models of NOx and soot; the selected model met a target of under 10% prediction error.</li>
+					</ul>
+				</div>
+			</article>
 		</div>
 	</section>
 
@@ -207,21 +185,25 @@
 				<span class="count">2 degrees</span>
 			</div>
 
-			<article class="project">
+			<article class="entry">
 				<div class="entry-when">2022 — 2026</div>
-				<div>
+				<div class="entry-body">
 					<h3>M.Sc. Computational Modeling and Simulation</h3>
 					<p class="entry-org">Technische Universität Dresden — final grade 1.7</p>
-					<p>Computational Engineering track, focused on machine learning and data science. Thesis at ScaDS.AI, on the project below.</p>
+					<ul>
+						<li>Computational Engineering track, focused on machine learning and data science. Thesis at ScaDS.AI, on the project below.</li>
+					</ul>
 				</div>
 			</article>
 
-			<article class="project">
+			<article class="entry">
 				<div class="entry-when">2016 — 2020</div>
-				<div>
+				<div class="entry-body">
 					<h3>B.Tech. Mechanical Engineering</h3>
 					<p class="entry-org">Manipal Institute of Technology — CGPA 8.81 / 10</p>
-					<p>Minor in Machine Design. Thesis: <em>Optimization of Engine Emissions using Numerical Modelling, DoE &amp; Machine Learning</em>.</p>
+					<ul>
+						<li>Minor in Machine Design. Thesis: <em>Optimization of Engine Emissions using Numerical Modelling, DoE &amp; Machine Learning</em>.</li>
+					</ul>
 				</div>
 			</article>
 		</div>
@@ -242,19 +224,19 @@
 
 					<figure class="chart" data-chart>
 						<div class="chart-row">
-							<span class="chart-key">Baseline</span>
+							<span class="chart-key">baseline</span>
 							<span class="chart-track"><span class="chart-fill" style="--w:91.2%"></span></span>
 							<span class="chart-value">0.459</span>
 						</div>
 						<div class="chart-row">
-							<span class="chart-key">With UMLS graph</span>
+							<span class="chart-key">+ UMLS graph</span>
 							<span class="chart-track"><span class="chart-fill" style="--w:100%"></span></span>
 							<span class="chart-value">0.503</span>
 						</div>
-						<figcaption>Micro-F1, Llama-3.1-8B, current-visit coding. Same data, same compute budget — the knowledge graph is the only difference. Tail-class F1 rose 26–46%; gains on next-visit prediction were marginal, which the thesis reports rather than hides.</figcaption>
+						<figcaption>Micro-F1, Llama-3.1-8B, current-visit coding. Tail-class F1 rose 26–46%; gains on next-visit prediction were marginal, which the thesis reports rather than hides.</figcaption>
 					</figure>
 
-					<p class="project-links"><a href="https://github.com/Arjun-Sivasankar/MasterThesis">Code and thesis on GitHub</a></p>
+					<p class="project-links"><a href="https://github.com/Arjun-Sivasankar/MasterThesis">code and thesis on GitHub</a></p>
 				</div>
 			</article>
 
@@ -270,7 +252,8 @@
 				<div class="entry-when">Coursework</div>
 				<div>
 					<h3>Traffic sign classification on GTSRB</h3>
-					<p>Convolutional network for German traffic sign recognition. <a href="https://github.com/Arjun-Sivasankar/GTSRB-TrafficClassification">Code on GitHub</a>.</p>
+					<p>Convolutional network for German traffic sign recognition.</p>
+					<p class="project-links"><a href="https://github.com/Arjun-Sivasankar/GTSRB-TrafficClassification">code on GitHub</a></p>
 				</div>
 			</article>
 		</div>
@@ -320,19 +303,19 @@
 			</div>
 
 			<div class="citation">
-				<p class="meta">IEEE ACDSA 2024, pp. 1–7</p>
+				<p class="count">IEEE ACDSA 2024, pp. 1–7</p>
 				<span class="cite-title">Enlarging the time budget for neural network based predictors for access interval prediction</span>
 				<p>Friedrich, S., Sivasankar, A., Matúš, E., &amp; Fettweis, G. — Vodafone Chair, TU Dresden. <a href="https://doi.org/10.1109/ACDSA59508.2024.10467779">doi:10.1109/ACDSA59508.2024.10467779</a></p>
 			</div>
 
 			<div class="citation">
-				<p class="meta">Indian patent, granted February 2024</p>
+				<p class="count">Indian patent, granted February 2024</p>
 				<span class="cite-title">A System for Ejection</span>
 				<p>Canister-aided gas ejection mechanism, application 201941044944, filed 2019 — built for the sounding rocket that Team thrustMIT flew at the 2019 Spaceport America Cup.</p>
 			</div>
 
 			<div class="citation">
-				<p class="meta">Recognition</p>
+				<p class="count">Recognition</p>
 				<ul class="awards">
 					<li><span class="award-name">Rising Star Award</span>, L&amp;T Technology Services, FY 2021–22.</li>
 					<li><span class="award-name">Recognition of Leadership Award</span>, Manipal Institute of Technology, for leading a team of 24 as Mechanical Head and Deputy Project Manager.</li>
@@ -342,32 +325,23 @@
 	</section>
 
 	<section class="contact" id="contact" aria-labelledby="contact-title">
-		<div class="shell contact-grid">
-			<div>
-				<h2 id="contact-title">Open to AI engineering roles in Germany and the EU.</h2>
-				<div class="copy-row">
-					<a class="contact-mail" href="mailto:arjun.sivasankar@gmail.com">arjun.sivasankar@gmail.com</a>
-					<button class="copy" type="button" data-copy="arjun.sivasankar@gmail.com">Copy</button>
-					<span class="stamp" id="stamp" role="status" aria-live="polite"></span>
-				</div>
-			</div>
-			<div class="contact-facts">
-				<p class="meta" style="color:inherit">Based in Trier, open to relocating.</p>
-				<p class="meta" style="color:inherit">English fluent, German basic, plus Hindi, Malayalam and Gujarati.</p>
-				<p class="hero-links" style="margin-top:0.4rem">
-					<a href="https://www.linkedin.com/in/arjun-sivasankar-381380155/">LinkedIn</a>
-					<a href="https://github.com/Arjun-Sivasankar">GitHub</a>
-				</p>
-			</div>
+		<div class="shell">
+			<h2 id="contact-title">Open to AI engineering roles in Germany and the EU.</h2>
+			<a class="contact-mail" href="mailto:arjun.sivasankar@gmail.com">arjun.sivasankar@gmail.com</a>
+			<p class="contact-note">Based in Trier, open to relocating. English fluent, German basic, plus Hindi, Malayalam and Gujarati.</p>
+			<p class="contact-links">
+				<a href="https://www.linkedin.com/in/arjun-sivasankar-381380155/">linkedin</a>
+				<a href="https://github.com/Arjun-Sivasankar">github</a>
+			</p>
 		</div>
 	</section>
 
 </main>
 
-<footer class="colophon">
+<footer class="foot">
 	<div class="shell">
 		<p>© <span id="year">2026</span> Arjun Sivasankar</p>
-		<p>Hand-written HTML and CSS. No frameworks, no trackers, no third-party requests.</p>
+		<p>Hand-written HTML and CSS · Space Grotesk by Florian Karsten, OFL · no trackers, no third-party requests</p>
 	</div>
 </footer>
 
