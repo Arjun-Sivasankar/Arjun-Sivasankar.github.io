@@ -78,35 +78,35 @@
 
 	/* ---------------------------------------------------------- the solid */
 
-	var detail = window.innerWidth < 760 ? 0 : 1;
-	var geometry = new THREE.IcosahedronGeometry(1.12, detail);
+	var detail = window.innerWidth < 760 ? 1 : 2;
+	var geometry = new THREE.IcosahedronGeometry(0.66, detail);
 
 	var material = new THREE.MeshPhysicalMaterial({
-		color: 0x0c2320,
-		metalness: 0.55,
-		roughness: 0.18,
+		color: 0x08120f,
+		metalness: 0.45,
+		roughness: 0.22,
 		clearcoat: 1,
 		clearcoatRoughness: 0.22,
 		flatShading: true,
 		envMap: envMap,
-		envMapIntensity: 1.6
+		envMapIntensity: 1.15
 	});
 
 	var solid = new THREE.Mesh(geometry, material);
-	solid.position.set(0.42, 0.42, 0);
+	solid.position.set(0.58, 0.26, 0);
 	scene.add(solid);
 
 	/* ---------------------------------------------------------- lights */
 
-	var key = new THREE.DirectionalLight(0xffffff, 2.4);
+	var key = new THREE.DirectionalLight(0xffffff, 1.7);
 	key.position.set(4, 6, 5);
 	scene.add(key);
 
-	var rim = new THREE.PointLight(0x7cf2d4, 9, 14);
+	var rim = new THREE.PointLight(0x7cf2d4, 6, 12);
 	rim.position.set(-3.4, 1.6, -3.2);
 	scene.add(rim);
 
-	var fill = new THREE.AmbientLight(0x10201d, 3);
+	var fill = new THREE.AmbientLight(0x10201d, 1.6);
 	scene.add(fill);
 
 	/* ---------------------------------------------------------- stars */
@@ -160,7 +160,7 @@
 
 		solid.rotation.y = t * 0.14 + pointer.x * 0.65;
 		solid.rotation.x = Math.sin(t * 0.33) * 0.1 + pointer.y * 0.42;
-		solid.position.y = 0.42 + Math.sin(t * 0.5) * 0.045;
+		solid.position.y = 0.26 + Math.sin(t * 0.5) * 0.035;
 
 		stars.rotation.y = t * 0.008;
 		stars.rotation.x = pointer.y * -0.03;
