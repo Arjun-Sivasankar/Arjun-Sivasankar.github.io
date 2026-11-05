@@ -103,8 +103,9 @@ a { color: inherit; }
 
 .vignette {
 	background:
-		radial-gradient(120% 80% at 50% -10%, rgba(61, 90, 254, 0.16), transparent 60%),
-		radial-gradient(100% 100% at 50% 50%, transparent 40%, rgba(7, 8, 10, 0.9) 100%);
+		radial-gradient(90% 60% at 20% 0%, rgba(61, 90, 254, 0.24), transparent 62%),
+		radial-gradient(120% 90% at 50% 100%, rgba(61, 90, 254, 0.08), transparent 55%),
+		radial-gradient(100% 100% at 50% 50%, transparent 45%, rgba(7, 8, 10, 0.92) 100%);
 }
 
 .progress {
@@ -200,7 +201,7 @@ a { color: inherit; }
 .hero {
 	position: relative;
 	z-index: 2;
-	min-height: calc(100svh - 4.25rem);
+	min-height: clamp(30rem, 84svh, 52rem);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
