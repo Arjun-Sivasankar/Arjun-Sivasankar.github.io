@@ -35,9 +35,6 @@
 <a class="skip" href="#work">Skip to work</a>
 <div class="grain" aria-hidden="true"></div>
 
-<canvas id="scene" aria-hidden="true"></canvas>
-<div class="beam" aria-hidden="true"></div>
-
 <header class="hud">
 	<a class="brand" href="#top">Arjun Sivasankar<span class="dot">.</span></a>
 
@@ -68,17 +65,11 @@
 			</div>
 		</div>
 
-		<figure class="reel" id="reel-frame">
-			<div class="reel-inner">
-				<video id="reel" muted playsinline autoplay preload="metadata" poster="/assets/img/reel-poster.jpg" aria-label="Ten second portrait of Arjun Sivasankar">
-					<source src="/assets/video/reel.mp4" type="video/mp4">
-				</video>
-				<span class="scan" aria-hidden="true"></span>
-				<span class="reel-time" id="reel-time" aria-hidden="true">00:00</span>
-				<button class="reel-replay" id="reel-replay" type="button" hidden>Replay</button>
-			</div>
-			<figcaption class="reel-cap"><span class="reel-corner">one take · 2026</span> Ten seconds, no cuts.</figcaption>
-		</figure>
+		<div class="hero-visual">
+			<video id="reel" muted playsinline autoplay preload="metadata" poster="/assets/img/reel-poster.jpg" aria-label="Portrait of Arjun Sivasankar">
+				<source src="/assets/video/reel.mp4" type="video/mp4">
+			</video>
+		</div>
 
 		<div class="hero-foot">
 			<span class="scroll-hint">Scroll to explore <span aria-hidden="true">↓</span></span>
@@ -229,7 +220,6 @@
 	</div>
 </footer>
 
-<script src="/assets/vendor/three.min.js" defer></script>
 <script src="/assets/js/site.js" defer></script>
 </body>
 </html>
