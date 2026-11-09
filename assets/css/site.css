@@ -990,3 +990,14 @@ body.intro-running { overflow: hidden; }
 }
 
 #work { background: #0a0908; }
+/* a little more presence in the hero */
+.hero-media { width: min(100%, 33rem); }
+
+@media (min-width: 1700px) {
+	.hero-media { width: min(100%, 38rem); }
+	.hero-grid { gap: 4rem; }
+}
+
+@media (max-width: 900px) {
+	.hero-media { width: min(100%, 24rem); }
+}
