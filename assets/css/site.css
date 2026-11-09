@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Arjun Sivasankar — arjun-sivasankar.github.io
+   Arjun Sivasankar, arjun-sivasankar.github.io
    Warm paper, Schibsted Grotesk, editorial sections. No frameworks.
    ========================================================================== */
 
@@ -872,7 +872,7 @@ body.intro-running { overflow: hidden; }
 /* the section after the hero must not be lighter than the hero */
 #work { background: #0a0908; }
 /* ============================================================
-   HERO — final layer. Blurred field from the portrait itself,
+   HERO, final layer. Blurred field from the portrait itself,
    feathered clip, no edges. This block must stay last.
    ============================================================ */
 
@@ -932,6 +932,61 @@ body.intro-running { overflow: hidden; }
 	-webkit-mask-composite: source-over;
 	mask-image: radial-gradient(120% 100% at 54% 42%, #000 0 40%, rgba(0, 0, 0, 0.78) 62%, rgba(0, 0, 0, 0.30) 82%, transparent 96%);
 	mask-composite: add;
+}
+
+#work { background: #0a0908; }
+/* HERO FINAL, two linear feathers, intersect. This is the combination that
+   rendered correctly; single-mask + mask-composite:add is what produced the box. */
+.hero { position: relative; overflow: hidden; background: #0a0908; }
+
+.hero::before {
+	content: "";
+	position: absolute;
+	inset: -18%;
+	z-index: 0;
+	background: url("/assets/img/reel-poster.jpg") center 28% / cover no-repeat;
+	filter: blur(96px) saturate(1.2) brightness(0.6);
+	transform: scale(1.25);
+	-webkit-mask-image:
+		linear-gradient(90deg, transparent 0, #000 45%, #000 100%),
+		linear-gradient(180deg, transparent 0, #000 30%, #000 70%, transparent 100%);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		linear-gradient(90deg, transparent 0, #000 45%, #000 100%),
+		linear-gradient(180deg, transparent 0, #000 30%, #000 70%, transparent 100%);
+	mask-composite: intersect;
+}
+
+.hero::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background: linear-gradient(90deg,
+		#0a0908 0%, rgba(10, 9, 8, 0.95) 24%, rgba(10, 9, 8, 0.7) 42%,
+		rgba(10, 9, 8, 0.3) 58%, rgba(10, 9, 8, 0) 78%);
+}
+
+.hero-grid { position: relative; z-index: 2; }
+.hero-media { width: min(100%, 29rem); }
+
+.hero-media video {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 4 / 5;
+	object-fit: cover;
+	object-position: 50% 12%;
+	border-radius: 0;
+	background: none;
+	-webkit-mask-image:
+		linear-gradient(90deg, transparent 0, #000 16%, #000 88%, transparent 100%),
+		linear-gradient(180deg, transparent 0, #000 12%, #000 84%, transparent 100%);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		linear-gradient(90deg, transparent 0, #000 16%, #000 88%, transparent 100%),
+		linear-gradient(180deg, transparent 0, #000 12%, #000 84%, transparent 100%);
+	mask-composite: intersect;
 }
 
 #work { background: #0a0908; }
