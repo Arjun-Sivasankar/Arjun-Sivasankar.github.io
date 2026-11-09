@@ -148,3 +148,69 @@
 		year.textContent = new Date().getFullYear();
 	}
 }());
+
+/* Playback resilience: some browsers refuse the first play() or stall on metadata.
+   Nudge politely, then give the viewer a button rather than a frozen frame. */
+(function () {
+	'use strict';
+
+	var hero = document.getElementById('reel');
+	var introVideo = document.getElementById('intro-reel');
+
+	function unlock(video) {
+		video.muted = true;
+		video.defaultMuted = true;
+		video.setAttribute('muted', '');
+		video.playsInline = true;
+		video.setAttribute('playsinline', '');
+		video.setAttribute('webkit-playsinline', '');
+	}
+
+	function nudge(video) {
+		if (!video || video.ended) {
+			return;
+		}
+		var attempt = video.play();
+		if (attempt && attempt.catch) {
+			attempt.catch(function () {});
+		}
+	}
+
+	[hero, introVideo].forEach(function (video) {
+		if (!video) {
+			return;
+		}
+		unlock(video);
+		video.addEventListener('canplay', function () { nudge(video); });
+		nudge(video);
+	});
+
+	if (!hero) {
+		return;
+	}
+
+	document.addEventListener('pointerdown', function resume() {
+		nudge(hero);
+		document.removeEventListener('pointerdown', resume);
+	}, { passive: true });
+
+	[600, 1600, 3000].forEach(function (delay) {
+		window.setTimeout(function () {
+			if (!hero.paused || hero.ended) {
+				return;
+			}
+			nudge(hero);
+			if (delay === 3000 && hero.paused && !document.querySelector('.reel-play-btn')) {
+				var button = document.createElement('button');
+				button.type = 'button';
+				button.className = 'reel-play-btn';
+				button.textContent = 'Play portrait';
+				button.addEventListener('click', function () {
+					nudge(hero);
+					button.remove();
+				});
+				hero.parentNode.appendChild(button);
+			}
+		}, delay);
+	});
+}());

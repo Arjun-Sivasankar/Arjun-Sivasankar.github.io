@@ -250,8 +250,31 @@ em {
 .btn-dark:hover { transform: translateY(-1px); background: #ffffff; color: #0a0908; }
 
 @media (max-width: 880px) {
-	.nav-links { display: none; }
-	.nav-inner { height: 4rem; }
+	.nav-inner {
+		height: auto;
+		flex-wrap: wrap;
+		padding-block: 0.7rem;
+		gap: 0.6rem 1rem;
+	}
+	.nav-links {
+		order: 3;
+		width: 100%;
+		gap: 1.1rem;
+		margin: 0;
+		font-size: 0.82rem;
+		overflow-x: auto;
+	}
+	.brand-text small { display: none; }
+	.btn { padding: 0.68rem 1.1rem; font-size: 0.86rem; }
+}
+
+/* larger displays: let the page breathe instead of stranding a 1200px column */
+@media (min-width: 1700px) {
+	:root { --shell: 1420px; }
+	h1 { font-size: clamp(4rem, 4.6vw, 5.4rem); }
+	.hero-media { width: min(100%, 31rem); }
+	.hero { padding-block: 7rem 8rem; }
+	.section { padding-block: 8rem; }
 }
 
 /* ---------------------------------------------------------------- hero */
@@ -664,3 +687,23 @@ em {
 }
 
 body.intro-running { overflow: hidden; }
+/* stalled video: never leave a frozen frame without a way out */
+.reel-play-btn {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 6;
+	padding: 0.7rem 1.3rem;
+	border: 1px solid rgba(244, 242, 237, 0.5);
+	border-radius: 999px;
+	background: rgba(10, 9, 8, 0.6);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	color: #f4f2ed;
+	font-family: inherit;
+	font-size: 0.85rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+.hero-media { position: relative; }
