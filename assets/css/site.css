@@ -627,7 +627,7 @@ em {
 
 .intro video {
 	width: auto;
-	height: 100%;
+	height: 100svh;
 	max-width: 100%;
 	object-fit: contain;
 	opacity: 0;
