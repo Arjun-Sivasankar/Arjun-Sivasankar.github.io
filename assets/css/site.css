@@ -800,3 +800,49 @@ body.intro-running { overflow: hidden; }
 @media (max-width: 900px) {
 	.hero::before { inset: -10% -20% 30% -20%; background: linear-gradient(180deg, #0a0908 0%, #232b2d 55%, #0a0908 100%); opacity: 0.9; }
 }
+/* The hero's own colour field, derived from the portrait itself:
+   no chosen gradient can beat the actual image, so the backdrop IS the image. */
+.hero { position: relative; overflow: hidden; background: #0a0908; }
+
+.hero::before {
+	content: "";
+	position: absolute;
+	inset: -18%;
+	z-index: 0;
+	background: url("/assets/img/reel-poster.jpg") center 28% / cover no-repeat;
+	filter: blur(96px) saturate(1.25) brightness(0.62);
+	transform: scale(1.25);
+	opacity: 0.9;
+	-webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 30%, #000 52%, #000 100%);
+	mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.35) 30%, #000 52%, #000 100%);
+}
+
+/* a scrim so the headline keeps its contrast, feathered so it never bands */
+.hero::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background: linear-gradient(90deg,
+		#0a0908 0%,
+		rgba(10, 9, 8, 0.96) 22%,
+		rgba(10, 9, 8, 0.72) 40%,
+		rgba(10, 9, 8, 0.32) 56%,
+		rgba(10, 9, 8, 0.08) 70%,
+		rgba(10, 9, 8, 0) 82%);
+}
+
+.hero-grid { position: relative; z-index: 2; }
+
+/* the clip sits in that haze with no edge of its own */
+.hero-media video {
+	-webkit-mask-image:
+		linear-gradient(90deg, transparent 0, #000 16%, #000 88%, transparent 100%),
+		linear-gradient(180deg, transparent 0, #000 12%, #000 84%, transparent 100%);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		linear-gradient(90deg, transparent 0, #000 16%, #000 88%, transparent 100%),
+		linear-gradient(180deg, transparent 0, #000 12%, #000 84%, transparent 100%);
+	mask-composite: intersect;
+}
