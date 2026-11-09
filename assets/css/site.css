@@ -326,7 +326,7 @@ em {
 	object-position: 50% 12%;
 	border-radius: 20px;
 	background: #15130f;
-	filter: saturate(0.92) contrast(1.02);
+	filter: brightness(0.72) saturate(0.66) contrast(1.08);
 	box-shadow: 0 30px 70px -40px rgba(0, 0, 0, 0.9);
 }
 
@@ -337,9 +337,10 @@ em {
 	border-radius: 20px;
 	pointer-events: none;
 	background:
-		linear-gradient(90deg, var(--paper) 0%, rgba(246, 244, 239, 0.55) 6%, rgba(246, 244, 239, 0) 22%),
-		linear-gradient(0deg, rgba(246, 244, 239, 0.55) 0%, rgba(246, 244, 239, 0) 18%),
-		linear-gradient(180deg, rgba(246, 244, 239, 0.35) 0%, rgba(246, 244, 239, 0) 14%);
+		linear-gradient(90deg, var(--paper) 0%, rgba(10, 9, 8, 0.9) 8%, rgba(10, 9, 8, 0) 26%),
+		linear-gradient(0deg, rgba(10, 9, 8, 0.92) 0%, rgba(10, 9, 8, 0) 26%),
+		linear-gradient(180deg, rgba(10, 9, 8, 0.85) 0%, rgba(10, 9, 8, 0) 24%),
+		radial-gradient(120% 90% at 50% 40%, transparent 45%, rgba(10, 9, 8, 0.55) 100%);
 }
 
 @media (max-width: 900px) {
