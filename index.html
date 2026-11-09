@@ -70,15 +70,13 @@
 
 		<figure class="reel" id="reel-frame">
 			<div class="reel-inner">
-				<video id="reel" muted loop playsinline autoplay preload="metadata" poster="/assets/img/portrait.jpg" aria-label="Showreel">
+				<video id="reel" muted playsinline autoplay preload="metadata" poster="/assets/img/reel-poster.jpg" aria-label="Ten second portrait of Arjun Sivasankar">
 					<source src="/assets/video/reel.mp4" type="video/mp4">
 				</video>
-				<span class="reel-corner">reel / 2026</span>
-				<span class="reel-play" aria-hidden="true">
-					<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-					Running
-				</span>
+				<span class="reel-time" id="reel-time" aria-hidden="true">00:00</span>
+				<button class="reel-replay" id="reel-replay" type="button" hidden>Replay</button>
 			</div>
+			<figcaption class="reel-cap"><span class="reel-corner">one take · 2026</span> Ten seconds, no cuts.</figcaption>
 		</figure>
 
 		<div class="hero-foot">

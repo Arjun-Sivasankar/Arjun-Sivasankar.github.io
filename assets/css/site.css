@@ -728,3 +728,126 @@ h1 .line > span {
 }
 
 .no-webgl #scene { display: none; }
+
+/* ---------------------------------------------------------------- the living portrait */
+
+.reel {
+	width: min(100%, 27rem);
+	margin: 0;
+}
+
+.reel-inner {
+	position: relative;
+	aspect-ratio: 4 / 5;
+	border: 0;
+	border-radius: 22px;
+	overflow: hidden;
+	background: #05080a;
+	box-shadow: -50px 0 100px -40px rgba(124, 242, 212, 0.14), 0 40px 90px -50px #000;
+}
+
+.reel-inner video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 50% 14%;
+	filter: saturate(0.7) contrast(1.1) brightness(0.8);
+	transform: scale(1.02);
+}
+
+/* the footage emerges from the dark on the left and dissolves at the bottom */
+.reel-inner::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	pointer-events: none;
+	background: linear-gradient(90deg, #040506 0%, rgba(4, 5, 6, 0.9) 10%, rgba(4, 5, 6, 0.15) 34%, rgba(4, 5, 6, 0) 52%);
+}
+
+.reel-inner::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	pointer-events: none;
+	background:
+		linear-gradient(180deg, rgba(4, 5, 6, 0.55) 0%, rgba(4, 5, 6, 0) 26%),
+		linear-gradient(0deg, rgba(4, 5, 6, 0.95) 0%, rgba(4, 5, 6, 0) 38%),
+		radial-gradient(120% 80% at 55% 35%, rgba(124, 242, 212, 0.1), transparent 62%);
+	transition: opacity 0.9s var(--ease);
+}
+
+.reel-time {
+	position: absolute;
+	right: 0.95rem;
+	bottom: 0.85rem;
+	z-index: 4;
+	font-family: var(--mono);
+	font-size: 0.66rem;
+	letter-spacing: 0.1em;
+	color: rgba(255, 255, 255, 0.55);
+	font-variant-numeric: tabular-nums;
+}
+
+.reel-replay {
+	position: absolute;
+	left: 0.9rem;
+	bottom: 0.7rem;
+	z-index: 5;
+	padding: 0.32rem 0.7rem;
+	border: 1px solid rgba(255, 255, 255, 0.28);
+	border-radius: 999px;
+	background: rgba(4, 5, 6, 0.55);
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	color: #fff;
+	font-family: var(--mono);
+	font-size: 0.64rem;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+.reel-replay:hover { border-color: var(--accent); background: rgba(124, 242, 212, 0.12); }
+
+.reel-cap {
+	margin: 0.9rem 0 0;
+	font-family: var(--mono);
+	font-size: 0.66rem;
+	letter-spacing: 0.1em;
+	color: rgba(255, 255, 255, 0.32);
+	transition: color 0.6s var(--ease);
+}
+
+.reel-corner {
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	color: var(--accent);
+	margin-right: 0.6rem;
+}
+
+.reel.is-done .reel-inner::after { opacity: 0.72; }
+.reel.is-done .reel-cap { color: rgba(255, 255, 255, 0.55); }
+
+/* a single specular pass on load, then never again */
+@media (prefers-reduced-motion: no-preference) {
+	.reel-inner .scan {
+		position: absolute;
+		inset: 0;
+		z-index: 4;
+		pointer-events: none;
+		background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.12) 48%, transparent 62%);
+		transform: translateX(-120%);
+		animation: sweep 2.4s 0.7s var(--ease) 1 forwards;
+	}
+
+	@keyframes sweep {
+		to { transform: translateX(120%); }
+	}
+
+	.reel-inner video { transition: transform 1.2s var(--ease), filter 1.2s var(--ease); }
+	.reel.is-paused .reel-inner video { transform: scale(1.04); }
+}

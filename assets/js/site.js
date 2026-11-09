@@ -93,7 +93,7 @@
 	});
 
 	var solid = new THREE.Mesh(geometry, material);
-	solid.position.set(0.58, 0.26, 0);
+	solid.position.set(0.42, 0.3, 0);
 	scene.add(solid);
 
 	/* ---------------------------------------------------------- lights */
@@ -160,7 +160,7 @@
 
 		solid.rotation.y = t * 0.14 + pointer.x * 0.65;
 		solid.rotation.x = Math.sin(t * 0.33) * 0.1 + pointer.y * 0.42;
-		solid.position.y = 0.26 + Math.sin(t * 0.5) * 0.035;
+		solid.position.y = 0.3 + Math.sin(t * 0.5) * 0.035;
 
 		stars.rotation.y = t * 0.008;
 		stars.rotation.x = pointer.y * -0.03;
@@ -270,6 +270,96 @@
 	}, { passive: true });
 }());
 
+
+/* The reel: play exactly once, count the seconds, hold the last frame. */
+(function () {
+	'use strict';
+
+	var video = document.getElementById('reel');
+	var frame = document.getElementById('reel-frame');
+	var clock = document.getElementById('reel-time');
+	var replay = document.getElementById('reel-replay');
+	if (!video || !frame) {
+		return;
+	}
+
+	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	function pad(value) {
+		return (value < 10 ? '0' : '') + value;
+	}
+
+	function tick() {
+		if (!clock) {
+			return;
+		}
+		var seconds = Math.floor(video.currentTime || 0);
+		clock.textContent = pad(Math.floor(seconds / 60)) + ':' + pad(seconds % 60);
+	}
+
+	function offer(label) {
+		if (replay) {
+			replay.hidden = false;
+			replay.textContent = label;
+		}
+	}
+
+	video.addEventListener('timeupdate', tick);
+
+	video.addEventListener('ended', function () {
+		frame.classList.add('is-done');
+		offer('Replay');
+	});
+
+	if (replay) {
+		replay.addEventListener('click', function () {
+			frame.classList.remove('is-done');
+			replay.hidden = true;
+			video.currentTime = 0;
+			var played = video.play();
+			if (played && played.catch) {
+				played.catch(function () { offer('Play'); });
+			}
+		});
+	}
+
+	if (reduced) {
+		video.removeAttribute('autoplay');
+		video.pause();
+		frame.classList.add('is-paused');
+		offer('Play');
+		return;
+	}
+
+	var attempt = video.play();
+	if (attempt && attempt.catch) {
+		attempt.catch(function () {
+			frame.classList.add('is-paused');
+			offer('Play');
+		});
+	}
+
+	if ('IntersectionObserver' in window) {
+		new IntersectionObserver(function (entries) {
+			if (!entries[0].isIntersecting) {
+				video.pause();
+				return;
+			}
+			if (!video.ended && !frame.classList.contains('is-done')) {
+				var resumed = video.play();
+				if (resumed && resumed.catch) {
+					resumed.catch(function () {});
+				}
+			}
+		}, { threshold: 0.2 }).observe(frame);
+	}
+
+	document.addEventListener('visibilitychange', function () {
+		if (document.hidden) {
+			video.pause();
+		}
+	});
+}());
 /* Section reveals, once each. */
 (function () {
 	'use strict';
