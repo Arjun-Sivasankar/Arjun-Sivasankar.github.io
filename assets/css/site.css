@@ -772,3 +772,31 @@ body.intro-running { overflow: hidden; }
 
 .card-foot { gap: 0.35rem 0.6rem; }
 .card-foot > span { white-space: nowrap; }
+/* one continuous colour field: no terminus on the right, no seam at the video edge */
+.hero::before {
+	inset: -20% -20% -20% 0;
+	background: linear-gradient(100deg,
+		#0a0908 0%,
+		#0a0908 26%,
+		#141819 42%,
+		#252d2f 62%,
+		#333c3e 82%,
+		#2f383a 100%);
+	opacity: 0.98;
+}
+
+/* and let the clip dissolve into that field instead of ending on a hard edge */
+.hero-media video {
+	-webkit-mask-image:
+		linear-gradient(90deg, transparent 0, #000 13%, #000 93%, transparent 100%),
+		linear-gradient(180deg, transparent 0, #000 11%, #000 90%, transparent 100%);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		linear-gradient(90deg, transparent 0, #000 13%, #000 93%, transparent 100%),
+		linear-gradient(180deg, transparent 0, #000 11%, #000 90%, transparent 100%);
+	mask-composite: intersect;
+}
+
+@media (max-width: 900px) {
+	.hero::before { inset: -10% -20% 30% -20%; background: linear-gradient(180deg, #0a0908 0%, #232b2d 55%, #0a0908 100%); opacity: 0.9; }
+}
