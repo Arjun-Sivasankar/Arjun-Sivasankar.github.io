@@ -214,3 +214,61 @@
 		}, delay);
 	});
 }());
+/* Audit fixes: keep the hero alive after the intro, respect reduced motion,
+   and stop the intro from trapping keyboard users behind the overlay. */
+(function () {
+	'use strict';
+
+	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var intro = document.getElementById('intro');
+	var hero = document.getElementById('reel');
+	var skip = document.getElementById('intro-skip');
+	var main = document.getElementById('top');
+
+	if (reduced) {
+		[document.getElementById('reel'), document.getElementById('intro-reel')].forEach(function (v) {
+			if (v) { v.pause(); v.removeAttribute('autoplay'); }
+		});
+		if (hero) { hero.removeAttribute('autoplay'); }
+		return;
+	}
+
+	function resetHero() {
+		if (!hero) { return; }
+		hero.currentTime = 0;
+		var played = hero.play();
+		if (played && played.catch) { played.catch(function () {}); }
+	}
+
+	if (!intro) { return; }
+
+	var regions = [document.querySelector('header'), document.querySelector('main'), document.querySelector('footer')];
+
+	function lock(on) {
+		regions.forEach(function (region) {
+			if (!region) { return; }
+			if (on) { region.setAttribute('inert', ''); region.setAttribute('aria-hidden', 'true'); }
+			else { region.removeAttribute('inert'); region.removeAttribute('aria-hidden'); }
+		});
+	}
+
+	if (!intro.hidden) {
+		lock(true);
+		if (skip) { skip.focus(); }
+	}
+
+	var introVideo = document.getElementById('intro-reel');
+	if (introVideo) {
+		introVideo.addEventListener('ended', resetHero);
+		introVideo.addEventListener('error', resetHero);
+	}
+	if (skip) { skip.addEventListener('click', resetHero); }
+
+	var watcher = setInterval(function () {
+		if (intro.hidden) {
+			lock(false);
+			if (main) { main.focus(); }
+			clearInterval(watcher);
+		}
+	}, 250);
+}());

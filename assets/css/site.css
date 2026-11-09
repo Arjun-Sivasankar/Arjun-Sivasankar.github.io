@@ -24,7 +24,7 @@
 	--surface: #111110;
 	--ink: #f4f2ed;
 	--muted: rgba(244, 242, 237, 0.64);
-	--soft: rgba(244, 242, 237, 0.42);
+	--soft: rgba(244, 242, 237, 0.62);
 	--line: rgba(244, 242, 237, 0.16);
 	--line-soft: rgba(244, 242, 237, 0.08);
 	--amber: #e79b3c;
@@ -758,3 +758,17 @@ body.intro-running { overflow: hidden; }
 	.hero-media { width: min(100%, 23rem); }
 	.hero::before { inset: 22% -10% -10% -10%; }
 }
+/* ---- audit fixes ---- */
+.intro video { width: 100%; height: 100svh; object-fit: cover; }
+@media (max-width: 900px) { .intro video { width: auto; object-fit: contain; } }
+
+@media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+
+@media (min-width: 1700px) { .prose { max-width: 72ch; font-size: 1.12rem; } }
+
+@media (max-width: 600px) { .sep { display: none; } .trust { gap: 0.35rem 0.9rem; } }
+
+@media print { .reveal { opacity: 1 !important; transform: none !important; } }
+
+.card-foot { gap: 0.35rem 0.6rem; }
+.card-foot > span { white-space: nowrap; }
