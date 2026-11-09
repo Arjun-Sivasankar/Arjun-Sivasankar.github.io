@@ -707,3 +707,18 @@ body.intro-running { overflow: hidden; }
 	cursor: pointer;
 }
 .hero-media { position: relative; }
+/* explicit overrides, appended last so they always win */
+@media (max-width: 880px) {
+	.nav-inner { height: auto; flex-wrap: wrap; padding-block: 0.7rem; gap: 0.6rem 1rem; }
+	.nav-links { order: 3; width: 100%; display: flex; gap: 1.1rem; margin: 0; font-size: 0.82rem; overflow-x: auto; }
+	.brand-text small { display: none; }
+}
+
+@media (min-width: 1700px) {
+	:root { --shell: 1420px; }
+	h1 { font-size: clamp(4rem, 4.4vw, 5.2rem); }
+	.hero { padding-block: 7rem 8rem; }
+	.section { padding-block: 8rem; }
+	.hero-media { width: min(100%, 31rem); }
+	.hero-grid { gap: 6rem; }
+}
