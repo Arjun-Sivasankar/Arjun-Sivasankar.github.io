@@ -871,34 +871,3 @@ body.intro-running { overflow: hidden; }
 
 /* the section after the hero must not be lighter than the hero */
 #work { background: #0a0908; }
-/* F2: full-bleed the clip so its mask stops land outside the section.
-   Nothing to feather at the visible boundary, because there is no boundary. */
-.hero-media {
-	width: min(100%, 32rem);
-	align-self: stretch;
-	display: flex;
-	align-items: center;
-}
-
-.hero-media video {
-	width: calc(100% + 8rem);
-	margin-inline: -4rem;
-	height: calc(100% + 12rem);
-	margin-block: -6rem;
-	aspect-ratio: auto;
-	object-fit: cover;
-	object-position: 58% 14%;
-	background: none;
-}
-
-@media (max-width: 900px) {
-	.hero-media { align-self: auto; display: block; }
-	.hero-media video {
-		width: calc(100% + 3rem);
-		margin-inline: -1.5rem;
-		height: auto;
-		margin-block: 0;
-		aspect-ratio: 4 / 5;
-		object-position: 50% 12%;
-	}
-}
