@@ -1,3 +1,70 @@
+/* The intro: the portrait plays once, full screen, then hands over to the page. */
+(function () {
+	'use strict';
+
+	var intro = document.getElementById('intro');
+	var video = document.getElementById('intro-reel');
+	var skip = document.getElementById('intro-skip');
+	var hero = document.getElementById('reel');
+	if (!intro || !video) {
+		return;
+	}
+
+	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	var seen = false;
+
+	try {
+		seen = window.sessionStorage.getItem('intro-seen') === '1';
+	} catch (error) {
+		seen = false;
+	}
+
+	function dismiss(remember) {
+		intro.classList.add('is-out');
+		document.body.classList.remove('intro-running');
+		if (remember) {
+			try {
+				window.sessionStorage.setItem('intro-seen', '1');
+			} catch (error) {}
+		}
+		video.pause();
+		window.setTimeout(function () {
+			intro.hidden = true;
+		}, 850);
+		if (hero) {
+			var started = hero.play();
+			if (started && started.catch) {
+				started.catch(function () {});
+			}
+		}
+	}
+
+	if (seen || reduced) {
+		intro.hidden = true;
+		return;
+	}
+
+	intro.hidden = false;
+	document.body.classList.add('intro-running');
+
+	video.addEventListener('ended', function () { dismiss(true); });
+	video.addEventListener('error', function () { dismiss(true); });
+
+	if (skip) {
+		skip.addEventListener('click', function () { dismiss(true); });
+	}
+
+	var attempt = video.play();
+	if (attempt && attempt.catch) {
+		attempt.catch(function () { dismiss(true); });
+	}
+
+	document.addEventListener('keydown', function (event) {
+		if (event.key === 'Escape' && !intro.hidden) {
+			dismiss(true);
+		}
+	});
+}());
 /* Small, boring enhancements: the hero reel plays once, sections reveal, year. */
 (function () {
 	'use strict';
