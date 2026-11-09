@@ -846,3 +846,28 @@ body.intro-running { overflow: hidden; }
 		linear-gradient(180deg, transparent 0, #000 12%, #000 84%, transparent 100%);
 	mask-composite: intersect;
 }
+/* QA pass: kill the edges the measurement found (top clip, bottom polarity flip,
+   and the 0.8/px ramp on the clip's right side). */
+.hero { background: transparent; }
+
+.hero::before {
+	-webkit-mask-image:
+		linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 30%, #000 52%, #000 100%),
+		linear-gradient(180deg, transparent 4%, rgba(0, 0, 0, 0.10) 13%, rgba(0, 0, 0, 0.55) 34%, rgba(0, 0, 0, 0.55) 66%, rgba(0, 0, 0, 0.10) 87%, transparent 96%);
+	-webkit-mask-composite: source-in;
+	mask-image:
+		linear-gradient(90deg, transparent 0, rgba(0, 0, 0, 0.35) 30%, #000 52%, #000 100%),
+		linear-gradient(180deg, transparent 4%, rgba(0, 0, 0, 0.10) 13%, rgba(0, 0, 0, 0.55) 34%, rgba(0, 0, 0, 0.55) 66%, rgba(0, 0, 0, 0.10) 87%, transparent 96%);
+	mask-composite: intersect;
+}
+
+/* radial feather: no linear ramp, so no visible shelf or side edge */
+.hero-media video {
+	-webkit-mask-image: radial-gradient(120% 100% at 54% 42%, #000 0 40%, rgba(0, 0, 0, 0.78) 62%, rgba(0, 0, 0, 0.30) 82%, transparent 96%);
+	-webkit-mask-composite: source-over;
+	mask-image: radial-gradient(120% 100% at 54% 42%, #000 0 40%, rgba(0, 0, 0, 0.78) 62%, rgba(0, 0, 0, 0.30) 82%, transparent 96%);
+	mask-composite: add;
+}
+
+/* the section after the hero must not be lighter than the hero */
+#work { background: #0a0908; }
