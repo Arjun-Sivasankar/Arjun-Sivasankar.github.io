@@ -859,8 +859,8 @@ h1 .line > span {
 	justify-self: end;
 	width: min(100%, 26rem);
 	aspect-ratio: 4 / 5;
-	-webkit-mask-image: radial-gradient(120% 102% at 54% 40%, #000 46%, rgba(0, 0, 0, 0.78) 72%, transparent 99%);
-	mask-image: radial-gradient(120% 102% at 54% 40%, #000 46%, rgba(0, 0, 0, 0.78) 72%, transparent 99%);
+	-webkit-mask-image: radial-gradient(74% 68% at 52% 38%, #000 26%, rgba(0, 0, 0, 0.62) 58%, transparent 88%);
+	mask-image: radial-gradient(74% 68% at 52% 38%, #000 26%, rgba(0, 0, 0, 0.62) 58%, transparent 88%);
 }
 
 .hero-visual video {
@@ -877,7 +877,7 @@ h1 .line > span {
 	position: absolute;
 	inset: 0;
 	pointer-events: none;
-	background: linear-gradient(90deg, #040506 0%, rgba(4, 5, 6, 0.85) 7%, rgba(4, 5, 6, 0.1) 28%, rgba(4, 5, 6, 0) 46%);
+	background: linear-gradient(90deg, #040506 0%, rgba(4, 5, 6, 0.92) 12%, rgba(4, 5, 6, 0.25) 34%, rgba(4, 5, 6, 0) 55%);
 }
 
 @media (max-width: 900px) {
