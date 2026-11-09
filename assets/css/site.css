@@ -626,8 +626,9 @@ em {
 .intro[hidden] { display: none; }
 
 .intro video {
-	width: 100%;
+	width: auto;
 	height: 100%;
+	max-width: 100%;
 	object-fit: contain;
 	opacity: 0;
 	animation: intro-in 0.7s 0.05s var(--ease) forwards;
