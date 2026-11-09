@@ -740,10 +740,11 @@ h1 .line > span {
 	position: relative;
 	aspect-ratio: 4 / 5;
 	border: 0;
-	border-radius: 22px;
+	border-radius: 0;
 	overflow: hidden;
-	background: #05080a;
-	box-shadow: -50px 0 100px -40px rgba(124, 242, 212, 0.14), 0 40px 90px -50px #000;
+	background: transparent;
+	-webkit-mask-image: radial-gradient(120% 104% at 56% 42%, #000 52%, rgba(0, 0, 0, 0.72) 76%, transparent 99%);
+	mask-image: radial-gradient(120% 104% at 56% 42%, #000 52%, rgba(0, 0, 0, 0.72) 76%, transparent 99%);
 }
 
 .reel-inner video {
@@ -753,7 +754,7 @@ h1 .line > span {
 	height: 100%;
 	object-fit: cover;
 	object-position: 50% 14%;
-	filter: saturate(0.7) contrast(1.1) brightness(0.8);
+	filter: saturate(0.62) contrast(1.14) brightness(0.7);
 	transform: scale(1.02);
 }
 
@@ -764,7 +765,7 @@ h1 .line > span {
 	inset: 0;
 	z-index: 2;
 	pointer-events: none;
-	background: linear-gradient(90deg, #040506 0%, rgba(4, 5, 6, 0.9) 10%, rgba(4, 5, 6, 0.15) 34%, rgba(4, 5, 6, 0) 52%);
+	background: linear-gradient(90deg, #040506 0%, rgba(4, 5, 6, 0.92) 8%, rgba(4, 5, 6, 0.2) 32%, rgba(4, 5, 6, 0) 50%);
 }
 
 .reel-inner::after {
@@ -774,7 +775,7 @@ h1 .line > span {
 	z-index: 3;
 	pointer-events: none;
 	background:
-		linear-gradient(180deg, rgba(4, 5, 6, 0.55) 0%, rgba(4, 5, 6, 0) 26%),
+		linear-gradient(180deg, rgba(4, 5, 6, 0.78) 0%, rgba(4, 5, 6, 0.1) 22%, rgba(4, 5, 6, 0) 34%),
 		linear-gradient(0deg, rgba(4, 5, 6, 0.95) 0%, rgba(4, 5, 6, 0) 38%),
 		radial-gradient(120% 80% at 55% 35%, rgba(124, 242, 212, 0.1), transparent 62%);
 	transition: opacity 0.9s var(--ease);

@@ -93,7 +93,7 @@
 	});
 
 	var solid = new THREE.Mesh(geometry, material);
-	solid.position.set(0.42, 0.3, 0);
+	solid.position.set(0.28, 0.32, 0);
 	scene.add(solid);
 
 	/* ---------------------------------------------------------- lights */
@@ -160,7 +160,7 @@
 
 		solid.rotation.y = t * 0.14 + pointer.x * 0.65;
 		solid.rotation.x = Math.sin(t * 0.33) * 0.1 + pointer.y * 0.42;
-		solid.position.y = 0.3 + Math.sin(t * 0.5) * 0.035;
+		solid.position.y = 0.32 + Math.sin(t * 0.5) * 0.035;
 
 		stars.rotation.y = t * 0.008;
 		stars.rotation.x = pointer.y * -0.03;
