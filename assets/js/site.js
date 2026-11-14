@@ -27,8 +27,8 @@
 	var heroReady = false;
 
 	/* The portrait is short, muted and plays once, so it plays even when the
-	   system asks for reduced motion (as the site always did); only the full-screen
-	   intro and the looping diagrams step back for reduced motion. */
+	   system asks for reduced motion (as the site always did). Only the full-screen
+	   intro steps back for reduced motion. */
 	function startHero(fromTop) {
 		if (!reel) { return; }
 		heroReady = true;
@@ -217,7 +217,7 @@
 		}
 
 		function start() {
-			if (running || reduced) { return; }
+			if (running) { return; }
 			running = true;
 			figure.classList.add('is-live');
 			origin = performance.now() - elapsed;
@@ -238,7 +238,8 @@
 	var figures = Array.prototype.slice.call(document.querySelectorAll('[data-sys]'));
 
 	if (figures.length) {
-		if (reduced || !('IntersectionObserver' in window)) {
+		/* the diagrams always run while on screen: they are the work itself */
+		if (!('IntersectionObserver' in window)) {
 			figures.forEach(function (figure) { figure.classList.add('is-seen'); });
 		} else {
 			var diagrams = new Map();
