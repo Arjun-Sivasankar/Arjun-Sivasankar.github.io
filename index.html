@@ -20,7 +20,7 @@
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/SchibstedGrotesk.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="/assets/css/site.css?v=9">
+<link rel="stylesheet" href="/assets/css/site.css?v=10">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -31,7 +31,6 @@
 	</video>
 	<button class="intro-skip" id="intro-skip" type="button">Skip intro</button>
 </div>
-
 
 <a class="skip" href="#top">Skip to content</a>
 
@@ -44,192 +43,331 @@
 		<nav class="nav-links" aria-label="Sections">
 			<a href="#work">Work</a>
 			<a href="#path">Experience</a>
-			<a href="#toolkit">Toolkit</a>
 			<a href="#research">Research</a>
+			<a href="#toolkit">Toolkit</a>
+			<a href="#education">Education</a>
 		</nav>
-		<a class="btn btn-dark" href="mailto:arjun.sivasankar@gmail.com">Get in touch <span aria-hidden="true">↗</span></a>
+		<a class="btn btn-light" href="mailto:arjun.sivasankar@gmail.com">Get in touch <span aria-hidden="true">↗</span></a>
 	</div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
 	<section class="hero">
 		<div class="shell hero-grid">
 			<div class="hero-copy">
-				<p class="eyebrow"><span class="dot" aria-hidden="true"></span>AI engineer, in practice</p>
+				<p class="hero-tag"><span class="dot" aria-hidden="true"></span>AI engineer, in practice</p>
 				<h1>I build AI that runs where the <em>data lives</em>.</h1>
 				<p class="lede">Agents, retrieval and speech systems served on your own GPUs and evaluated hard enough to ship, from the model to the interface someone actually uses.</p>
 				<div class="hero-actions">
-					<a class="btn btn-dark" href="mailto:arjun.sivasankar@gmail.com">Email me <span aria-hidden="true">↗</span></a>
-					<a class="link-arrow" href="#work">Explore the work <span aria-hidden="true">→</span></a>
+					<a class="btn btn-light" href="mailto:arjun.sivasankar@gmail.com">Email me <span aria-hidden="true">↗</span></a>
+					<a class="link-arrow" href="#work">See the systems <span aria-hidden="true">↓</span></a>
 				</div>
-				<p class="trust"><span class="dot" aria-hidden="true"></span>M.Sc. TU Dresden · 1.7<span class="sep"></span>IEEE ACDSA 2024<span class="sep"></span>Patent granted 2024</p>
+				<ul class="trust" aria-label="Credentials">
+					<li>M.Sc. TU Dresden, grade 1.7</li>
+					<li>IEEE ACDSA 2024</li>
+					<li>Patent granted 2024</li>
+				</ul>
 			</div>
 
 			<div class="hero-media">
-				<video id="reel" muted playsinline preload="metadata" poster="/assets/img/reel-poster.jpg" preload="auto" aria-label="Portrait of Arjun Sivasankar">
+				<video id="reel" muted playsinline preload="auto" poster="/assets/img/reel-poster.jpg" aria-label="Portrait of Arjun Sivasankar">
 					<source src="/assets/video/reel.mp4" type="video/mp4">
 				</video>
 			</div>
 		</div>
 	</section>
 
-	<section class="section section--statement">
-		<div class="shell">
-			<p class="eyebrow">The principle</p>
-			<h2 class="statement">Most AI fails in production for reasons that have nothing to do with the <em>model</em>.</h2>
-			<p class="prose">Latency, evaluation, data leaving the building, a validation layer that satisfies a regulator, that is the work. I have spent the last three years on it: fine-tuning and serving open-weight models on hospital hardware, building retrieval that answers in under a second, and putting agents in front of patients with a check on everything they say.</p>
+	<section class="section section--statement" aria-labelledby="principle-title">
+		<div class="shell split">
+			<h2 class="statement" id="principle-title">Most AI fails in production for reasons that have nothing to do with the model.</h2>
+			<p class="prose">Latency, evaluation, data leaving the building, a validation layer that satisfies a regulator. That is the work. I have spent the last three years on it: fine-tuning and serving open-weight models on our own GPUs, building retrieval that answers in under a second, and wrapping patient-facing agents in a layer that checks what they generate.</p>
 		</div>
 	</section>
 
 	<section class="section" id="work" aria-labelledby="work-title">
 		<div class="shell">
-			<p class="eyebrow">Selected work</p>
-			<h2 id="work-title">Three systems, and what each one had to <em>prove</em>.</h2>
+			<header class="section-head">
+				<p class="label">Selected work</p>
+				<h2 id="work-title">Four systems, drawn the way they run.</h2>
+				<p class="prose">Each diagram is the real pipeline. Watch a request move through it, or read the notes beside it.</p>
+			</header>
 
-			<div class="cards">
-				<article class="card">
-					<p class="card-kicker">01 · SuperDoc</p>
-					<h3>Multi-agent clinical assistant</h3>
-					<p class="card-sub">Chat and voice, built with a German university hospital</p>
-					<p>A patient-facing assistant in LangGraph with a separate validation layer around generation for EU MDR conformity.</p>
-					<p class="card-foot"><span>Agents</span> <strong>LangGraph</strong> <span class="sep"></span> <span>Voice</span> <strong>STT → LLM → TTS</strong></p>
-				</article>
+			<article class="case" aria-labelledby="case-superdoc">
+				<div class="case-copy">
+					<p class="case-meta">Docs4D, with a German university hospital</p>
+					<h3 id="case-superdoc">SuperDoc, a clinical assistant patients can talk to</h3>
+					<p>A patient-facing multi-agent assistant for chat and voice, built in LangGraph. A separate validation layer wrapped the generation core, designed for EU MDR conformity.</p>
+					<ul class="case-points">
+						<li>Built the real-time voice agent, speech to text to LLM to text to speech, as back-end services behind a gateway.</li>
+						<li>Integrated the voice agent into the Guardian iOS and Android app.</li>
+						<li>Ran as Docker services on our own infrastructure, so patient data never left it.</li>
+					</ul>
+					<ul class="tags" aria-label="Stack">
+						<li>LangGraph</li><li>Multi-agent</li><li>Speech to text</li><li>Text to speech</li><li>Docker</li>
+					</ul>
+				</div>
+				<figure class="sys" data-sys>
+					<svg viewBox="0 0 480 300" role="img" aria-labelledby="sys1-title">
+						<title id="sys1-title">SuperDoc voice loop: Guardian app, gateway, speech to text, LangGraph agents, validation layer, text to speech, back to the app.</title>
+						<path class="sys-path" d="M75,70 H405 V230 H75 Z"/>
+						<text class="sys-note" x="240" y="146">Patient data never leaves</text>
+						<text class="sys-note" x="240" y="164">our own infrastructure</text>
+						<g class="node" data-path="0" data-say="The patient speaks in the Guardian app."><rect x="7" y="48" width="136" height="44" rx="12"/><text x="75" y="75">Guardian app</text></g>
+						<g class="node" data-path="0" data-say="The gateway routes the audio to the voice services."><rect x="172" y="48" width="136" height="44" rx="12"/><text x="240" y="75">Gateway</text></g>
+						<g class="node" data-path="0" data-say="Speech to text transcribes it as it streams."><rect x="337" y="48" width="136" height="44" rx="12"/><text x="405" y="75">Speech to text</text></g>
+						<g class="node" data-path="0" data-say="LangGraph agents plan and draft the answer."><rect x="337" y="208" width="136" height="44" rx="12"/><text x="405" y="235">LangGraph agents</text></g>
+						<g class="node node--guard" data-path="0" data-say="The validation layer checks the draft before the patient hears it."><rect x="172" y="208" width="136" height="44" rx="12"/><text x="240" y="235">Validation layer</text></g>
+						<g class="node" data-path="0" data-say="Text to speech answers back in real time."><rect x="7" y="208" width="136" height="44" rx="12"/><text x="75" y="235">Text to speech</text></g>
+						<circle class="packet-glow" data-path="0" r="13"/>
+						<circle class="packet" data-path="0" data-dur="7" r="5"/>
+					</svg>
+					<figcaption class="sys-caption"><span class="live" aria-hidden="true"></span><span class="sys-say">A spoken question travels the full loop and comes back as speech.</span></figcaption>
+				</figure>
+			</article>
 
-				<article class="card">
-					<p class="card-kicker">02 · Retrieval</p>
-					<h3>Hybrid search over clinical documents</h3>
-					<p class="card-sub">Parsing, hierarchical chunking, reranking</p>
-					<p>Qdrant hybrid search with cross-encoder reranking. Batching the reranker brought retrieval under a second without losing recall.</p>
-					<p class="card-foot"><span>Latency</span> <strong>&lt; 1 s</strong> <span class="sep"></span> <span>Recall</span> <strong>unchanged</strong></p>
-				</article>
+			<article class="case" aria-labelledby="case-rag">
+				<div class="case-copy">
+					<p class="case-meta">Docs4D</p>
+					<h3 id="case-rag">A private LLM, with retrieval under a second</h3>
+					<p>Fine-tuned an open-weight LLM with LoRA for the clinical domain and served it through a vLLM API on in-house NVIDIA GPUs, keeping patient data off third-party APIs. Then built the retrieval around it, end to end.</p>
+					<ul class="case-points">
+						<li>Document parsing and hierarchical chunking into Qdrant hybrid search with cross-encoder reranking.</li>
+						<li>Batching the reranker brought retrieval under 1 second with no loss in context recall.</li>
+						<li>Scored with RAGAS and a self-hosted LLM judge, traced in Langfuse and tracked in MLflow. A/B-tested agent prompts and benchmarked open-weight models to pick the baseline.</li>
+					</ul>
+					<ul class="tags" aria-label="Stack">
+						<li>LoRA</li><li>vLLM</li><li>NVIDIA GPUs</li><li>Qdrant</li><li>RAGAS</li><li>Langfuse</li><li>MLflow</li>
+					</ul>
+				</div>
+				<figure class="sys" data-sys>
+					<svg viewBox="0 0 480 270" role="img" aria-labelledby="sys2-title">
+						<title id="sys2-title">Retrieval pipeline: documents, parsing, hierarchical chunks, Qdrant hybrid search, batched reranker, LoRA LLM on vLLM. Retrieval runs under one second.</title>
+						<text class="sys-row" x="7" y="26">Indexing</text>
+						<text class="sys-row" x="7" y="146">Answering</text>
+						<path class="sys-path" d="M75,60 H405 V180 H75"/>
+						<g class="node" data-path="0" data-say="Clinical documents come in."><rect x="7" y="38" width="136" height="44" rx="12"/><text x="75" y="65">Documents</text></g>
+						<g class="node" data-path="0" data-say="Parsing keeps their structure intact."><rect x="172" y="38" width="136" height="44" rx="12"/><text x="240" y="65">Parsing</text></g>
+						<g class="node" data-path="0" data-say="Hierarchical chunking keeps sections together."><rect x="337" y="38" width="136" height="44" rx="12"/><text x="405" y="65">Hierarchical chunks</text></g>
+						<g class="node" data-path="0" data-say="Hybrid search in Qdrant combines dense and keyword matches."><rect x="337" y="158" width="136" height="44" rx="12"/><text x="405" y="185">Hybrid search</text></g>
+						<g class="node" data-path="0" data-say="A cross-encoder reranks the hits, batched to stay under a second."><rect x="172" y="158" width="136" height="44" rx="12"/><text x="240" y="185">Batched reranker</text></g>
+						<g class="node" data-path="0" data-say="The fine-tuned model answers on our own GPU, with no third-party API."><rect x="7" y="158" width="136" height="44" rx="12"/><text x="75" y="185">LoRA LLM on vLLM</text></g>
+						<path class="sys-bracket" d="M172,214 V222 H473 V214"/>
+						<text class="sys-metric" x="322" y="246">retrieval under 1 second</text>
+						<text class="sys-row sys-row--mid" x="75" y="228">in-house NVIDIA GPUs</text>
+						<circle class="packet-glow" data-path="0" r="13"/>
+						<circle class="packet" data-path="0" data-dur="6" r="5"/>
+					</svg>
+					<figcaption class="sys-caption"><span class="live" aria-hidden="true"></span><span class="sys-say">Documents are indexed once, then every question is answered on our own hardware.</span></figcaption>
+				</figure>
+			</article>
 
-				<article class="card">
-					<p class="card-kicker">03 · MedScribe</p>
-					<h3>Streaming clinical transcription</h3>
-					<p class="card-sub">Live text, correction and diarization</p>
-					<p>NVIDIA Parakeet streaming ASR with Whisper for background correction and speaker diarization, isolated per clinic.</p>
-					<p class="card-foot"><span>Mode</span> <strong>streaming</strong> <span class="sep"></span> <span>Isolation</span> <strong>per clinic</strong></p>
-				</article>
+			<article class="case" aria-labelledby="case-medscribe">
+				<div class="case-copy">
+					<p class="case-meta">Docs4D</p>
+					<h3 id="case-medscribe">MedScribe, live clinical transcription</h3>
+					<p>Designed the speech pipeline. Streaming NVIDIA Parakeet ASR put text on screen while the clinician spoke, and Whisper corrected it in the background and separated the speakers. Each clinic's data was kept isolated from every other clinic's.</p>
+					<ul class="case-points">
+						<li>Integrated into Frontline, the Next.js medical dashboard I developed, next to DocScan.</li>
+						<li>Followed an earlier on-premise service I built at Vodafone for the 6G-HEALTH research project, which transcribed, separated speakers and summarized doctor and patient conversations in real time.</li>
+					</ul>
+					<ul class="tags" aria-label="Stack">
+						<li>NVIDIA Parakeet</li><li>Whisper</li><li>Speaker diarization</li><li>Next.js</li>
+					</ul>
+				</div>
+				<figure class="sys" data-sys>
+					<svg viewBox="0 0 480 280" role="img" aria-labelledby="sys3-title">
+						<title id="sys3-title">MedScribe: clinic audio splits into a fast lane, Parakeet streaming to live text, and a background lane, Whisper correction and speaker diarization, inside one clinic's isolated space.</title>
+						<rect class="sys-zone" x="4" y="30" width="472" height="244" rx="18"/>
+						<text class="sys-row" x="18" y="20">One clinic's isolated space</text>
+						<g class="wave" aria-hidden="true">
+							<rect x="22" y="130" width="5" height="40" rx="2.5"/><rect x="31" y="122" width="5" height="56" rx="2.5"/><rect x="40" y="136" width="5" height="28" rx="2.5"/><rect x="49" y="116" width="5" height="68" rx="2.5"/><rect x="58" y="128" width="5" height="44" rx="2.5"/><rect x="67" y="138" width="5" height="24" rx="2.5"/><rect x="76" y="120" width="5" height="60" rx="2.5"/><rect x="85" y="132" width="5" height="36" rx="2.5"/><rect x="94" y="140" width="5" height="20" rx="2.5"/>
+						</g>
+						<text class="sys-row sys-row--mid" x="60" y="212">Clinic audio</text>
+						<text class="sys-row" x="172" y="62">Live</text>
+						<text class="sys-row" x="172" y="252">Background</text>
+						<path class="sys-path" d="M106,150 C140,150 140,96 172,96 H405"/>
+						<path class="sys-path" d="M106,150 C140,150 140,204 172,204 H405"/>
+						<g class="node" data-path="0" data-say="Parakeet streams text to the screen while the clinician speaks."><rect x="172" y="74" width="136" height="44" rx="12"/><text x="240" y="101">Parakeet streaming</text></g>
+						<g class="node" data-path="0" data-say="Live text appears as it is spoken."><rect x="337" y="74" width="136" height="44" rx="12"/><text x="405" y="101">Live text</text></g>
+						<g class="node" data-path="1" data-say="In the background, Whisper corrects the transcript."><rect x="172" y="182" width="136" height="44" rx="12"/><text x="240" y="209">Whisper correction</text></g>
+						<g class="node" data-path="1" data-say="Diarization labels who said what."><rect x="337" y="182" width="136" height="44" rx="12"/><text x="405" y="209">Speaker diarization</text></g>
+						<circle class="packet-glow" data-path="0" r="13"/>
+						<circle class="packet" data-path="0" data-dur="2.6" r="5"/>
+						<circle class="packet-glow" data-path="1" r="13"/>
+						<circle class="packet packet--slow" data-path="1" data-dur="5.2" r="5"/>
+					</svg>
+					<figcaption class="sys-caption"><span class="live" aria-hidden="true"></span><span class="sys-say">One stream of audio, two lanes: fast text now, corrected text shortly after.</span></figcaption>
+				</figure>
+			</article>
+
+			<article class="case" aria-labelledby="case-thesis">
+				<div class="case-copy">
+					<p class="case-meta">Master's thesis, ScaDS.AI, TU Dresden</p>
+					<h3 id="case-thesis">Diagnosis prediction with a knowledge graph</h3>
+					<p>Predicted ICD-9 diagnosis codes from MIMIC-IV patient records by giving LoRA-fine-tuned LLMs paths from the UMLS knowledge graph. Compared 3 backbones and 4 pipelines under a fixed top-12 budget, on 53,561 admissions for current-visit coding.</p>
+					<ul class="case-points">
+						<li>Graph paths lifted micro-F1 from 0.459 to 0.503 (+9.7%) on Llama-3.1-8B, and Tail-50 F1 by 26% to 46%.</li>
+						<li>Generating text and grounding it with SapBERT and FAISS beat generating codes directly by about 0.20 micro-F1.</li>
+						<li>Trained with PyTorch DDP on multiple GPUs under SLURM on the TU Dresden HPC cluster, tracked in Weights &amp; Biases.</li>
+					</ul>
+					<ul class="tags" aria-label="Stack">
+						<li>Llama 3.1</li><li>Hugging Face PEFT</li><li>UMLS</li><li>SapBERT</li><li>FAISS</li><li>PyTorch DDP</li>
+					</ul>
+					<a class="link-arrow" href="https://github.com/Arjun-Sivasankar/MasterThesis">Read the code on GitHub <span aria-hidden="true">↗</span></a>
+				</div>
+				<figure class="sys" data-sys>
+					<svg viewBox="0 0 480 290" role="img" aria-labelledby="sys4-title">
+						<title id="sys4-title">Thesis pipeline: MIMIC-IV record, UMLS graph paths, LoRA-tuned Llama, ICD-9 codes. Micro-F1 rose from 0.459 to 0.503 with graph paths.</title>
+						<g class="graph" aria-hidden="true">
+							<line x1="240" y1="72" x2="226" y2="122"/>
+							<line class="hop" x1="186" y1="104" x2="226" y2="122"/>
+							<line class="hop" x1="226" y1="122" x2="266" y2="98"/>
+							<line x1="226" y1="122" x2="246" y2="150"/>
+							<line x1="266" y1="98" x2="300" y2="132"/>
+							<line x1="246" y1="150" x2="300" y2="132"/>
+							<circle cx="186" cy="104" r="5"/><circle cx="226" cy="122" r="6"/><circle cx="266" cy="98" r="5"/><circle cx="246" cy="150" r="4"/><circle cx="300" cy="132" r="4"/>
+						</g>
+						<path class="sys-path" d="M75,50 H405 V138"/>
+						<g class="node" data-path="0" data-say="A patient's admission comes in from MIMIC-IV."><rect x="7" y="28" width="136" height="44" rx="12"/><text x="75" y="55">MIMIC-IV record</text></g>
+						<g class="node node--graph" data-path="0" data-say="Its concepts pull 1 and 2 hop paths from the UMLS graph."><rect x="172" y="28" width="136" height="44" rx="12"/><text x="240" y="55">UMLS graph paths</text></g>
+						<g class="node" data-path="0" data-say="A LoRA-tuned Llama reads the record together with those paths."><rect x="337" y="28" width="136" height="44" rx="12"/><text x="405" y="55">LoRA-tuned Llama</text></g>
+						<g class="node" data-path="0" data-say="It predicts the diagnosis codes, grounded with SapBERT and FAISS."><rect x="337" y="116" width="136" height="44" rx="12"/><text x="405" y="143">ICD-9 codes</text></g>
+						<text class="sys-row" x="7" y="198">micro-F1, Llama-3.1-8B</text>
+						<text class="bar-label" x="7" y="227">Fine-tuned</text>
+						<rect class="bar-track" x="120" y="214" width="280" height="18" rx="4"/>
+						<rect class="bar" x="120" y="214" width="234" height="18" rx="4"/>
+						<text class="bar-value" x="362" y="228">0.459</text>
+						<text class="bar-label" x="7" y="263">With graph paths</text>
+						<rect class="bar-track" x="120" y="250" width="280" height="18" rx="4"/>
+						<rect class="bar bar--hot" x="120" y="250" width="256" height="18" rx="4"/>
+						<text class="bar-value bar-value--hot" x="384" y="264">0.503</text>
+						<circle class="packet-glow" data-path="0" r="13"/>
+						<circle class="packet" data-path="0" data-dur="5" r="5"/>
+					</svg>
+					<figcaption class="sys-caption"><span class="live" aria-hidden="true"></span><span class="sys-say">Knowledge-graph context in, better diagnosis codes out, most of all for rare codes.</span></figcaption>
+				</figure>
+			</article>
+
+			<div class="shipped">
+				<h3 class="shipped-title">Also shipped</h3>
+				<dl class="shipped-list">
+					<div><dt>DocScan <span>Docs4D</span></dt><dd>An OCR service through which patients uploaded medical reports and invoices and sent them to the practitioners at their hospital organization.</dd></div>
+					<div><dt>Frontline <span>Docs4D</span></dt><dd>A medical dashboard in Next.js, TypeScript and React that brought MedScribe and DocScan together.</dd></div>
+					<div><dt>Production backend <span>Docs4D</span></dt><dd>SQL migrations and row-level security policies for the Supabase (PostgreSQL) production backend.</dd></div>
+					<div><dt>Docs as code <span>Docs4D</span></dt><dd>A GitLab pipeline for quality-management and medical-device software documentation, with linting, merge-request previews and releases.</dd></div>
+					<div><dt>Enterprise LLM agents <span>Vodafone</span></dt><dd>Built LLM agents and their MCP servers with enterprise customers on Azure OpenAI and Azure AI Foundry, from experiment to integration in their products and the Vodafone Assist platform.</dd></div>
+					<div><dt>6G-HEALTH transcription <span>Vodafone</span></dt><dd>An on-premise service that transcribed, separated speakers and summarized doctor and patient conversations in real time to automate clinical notes.</dd></div>
+				</dl>
 			</div>
 		</div>
 	</section>
 
 	<section class="section" id="path" aria-labelledby="path-title">
-		<div class="shell">
-			<p class="eyebrow">The path</p>
-			<h2 id="path-title">From engine emissions to agents that <em>speak</em>.</h2>
+		<div class="shell split split--head">
+			<header class="section-head section-head--sticky">
+				<p class="label">Experience</p>
+				<h2 id="path-title">From engine emissions to agents that speak.</h2>
+			</header>
 
-			<ol class="steps">
+			<ol class="timeline">
 				<li>
-					<span class="step-num">01</span>
-					<div>
-						<h3>Mechanical engineering</h3>
-						<p>B.Tech at Manipal, then emissions modelling with design of experiments at Gannet. First contact with models that had to be right.</p>
-						<span class="when">2016 to 2020</span>
-					</div>
+					<p class="when"><time datetime="2020-01">Jan 2020</time> to <time datetime="2020-05">May 2020</time></p>
+					<h3>Automotive Research Intern <span>Gannet Engineering, Bangalore</span></h3>
+					<p>Bachelor's thesis. Planned engine test points with design of experiments and built regression and machine-learning models of NOx and soot emissions. The selected model met the target of under 10% prediction error.</p>
 				</li>
 				<li>
-					<span class="step-num">02</span>
-					<div>
-						<h3>Systems engineering</h3>
-						<p>Design Structure Matrices for wind-turbine architecture at L&amp;T, and the Python tooling that built them from correlation data.</p>
-						<span class="when">2021 to 2022</span>
-					</div>
+					<p class="when"><time datetime="2021-01">Jan 2021</time> to <time datetime="2022-08">Aug 2022</time></p>
+					<h3>Associate Engineer, then Engineer <span>L&amp;T Technology Services</span></h3>
+					<p>Built Design Structure Matrices across a wind-turbine architecture and a Python network-analysis tool that generated them from correlation data. Automated PLM data extraction from Windchill with Selenium, validated in Power BI.</p>
 				</li>
 				<li>
-					<span class="step-num">03</span>
-					<div>
-						<h3>Research at TU Dresden</h3>
-						<p>PyTorch models forecasting memory-access intervals in hardware accelerators. The IEEE ACDSA 2024 paper came out of this chair.</p>
-						<span class="when">2023 to 2024</span>
-					</div>
+					<p class="when"><time datetime="2023-05">May 2023</time> to <time datetime="2024-10">Oct 2024</time></p>
+					<h3>Student Research Assistant <span>Vodafone Chair Mobile Communication Systems, TU Dresden</span></h3>
+					<p>PyTorch models that forecast memory-access intervals in hardware accelerators from time-series data, and quantization-aware training below 8 bits. Co-authored the IEEE ACDSA 2024 paper.</p>
 				</li>
 				<li>
-					<span class="step-num">04</span>
-					<div>
-						<h3>Enterprise AI at Vodafone</h3>
-						<p>LLM agents on Azure AI Foundry with enterprise customers, plus an on-premise transcription service for 6G-HEALTH.</p>
-						<span class="when">2024 to 2025</span>
-					</div>
+					<p class="when"><time datetime="2024-11">Nov 2024</time> to <time datetime="2025-09">Sep 2025</time></p>
+					<h3>Applied AI Intern / Student Assistant <span>Vodafone Group Services</span></h3>
+					<p>LLM agents and MCP servers with enterprise customers on Azure OpenAI and Azure AI Foundry, and the on-premise 6G-HEALTH transcription service.</p>
 				</li>
 				<li>
-					<span class="step-num">05</span>
-					<div>
-						<h3>Clinical AI at Docs4D</h3>
-						<p>Self-hosted inference, retrieval, agents and voice for regulated clinical products. M.Sc. completed alongside, grade 1.7.</p>
-						<span class="when">2026 to now</span>
-					</div>
+					<p class="when"><time datetime="2026-03">Mar 2026</time> to <time datetime="2026-11">Nov 2026</time></p>
+					<h3>AI Engineer <span>Docs4D, healthcare AI, Trier</span></h3>
+					<p>Self-hosted LLMs, retrieval, agents, voice and OCR for regulated clinical products: SuperDoc, MedScribe, DocScan and Frontline.</p>
 				</li>
 			</ol>
 		</div>
 	</section>
 
+	<section class="section" id="research" aria-labelledby="research-title">
+		<div class="shell split split--head">
+			<header class="section-head section-head--sticky">
+				<p class="label">Research and recognition</p>
+				<h2 id="research-title">Published, patented and recognised.</h2>
+			</header>
+
+			<div class="records">
+				<article class="record">
+					<p class="record-meta">IEEE ACDSA 2024, paper</p>
+					<h3><a href="https://doi.org/10.1109/ACDSA59508.2024.10467779">Enlarging the time budget for neural network based predictors for access interval prediction <span aria-hidden="true">↗</span></a></h3>
+					<p>Friedrich, Sivasankar, Matúš, Fettweis. Vodafone Chair Mobile Communication Systems, TU Dresden.</p>
+				</article>
+				<article class="record">
+					<p class="record-meta">Indian patent, granted Feb 2024</p>
+					<h3>A System for Ejection</h3>
+					<p>Application 201941044944, filed Nov 2019. A canister-aided gas ejection mechanism for the sounding rocket Team thrustMIT built for Spaceport America 2019.</p>
+				</article>
+				<article class="record">
+					<p class="record-meta">Master's thesis, 2026</p>
+					<h3><a href="https://github.com/Arjun-Sivasankar/MasterThesis">Multimodal EHR-based diagnosis prediction via knowledge graph and neuro-symbolic reasoning <span aria-hidden="true">↗</span></a></h3>
+					<p>ScaDS.AI, Faculty of Computer Science, TU Dresden. Code is public.</p>
+				</article>
+				<article class="record">
+					<p class="record-meta">Awards</p>
+					<h3>Rising Star Award, L&amp;T Technology Services</h3>
+					<p>For outstanding performance in the 2021 to 22 financial year. Earlier, an On the Spot Recognition Award at the Spaceport America Cup 2019 for the launch vehicle design, and a Recognition of Leadership Award at Manipal for leading thrustMIT's team of 24 as Mechanical Head and Deputy Project Manager.</p>
+				</article>
+			</div>
+		</div>
+	</section>
+
 	<section class="section" id="toolkit" aria-labelledby="toolkit-title">
 		<div class="shell">
-			<p class="eyebrow">Toolkit</p>
-			<h2 id="toolkit-title">What I reach for, grouped the way the work <em>comes</em>.</h2>
+			<header class="section-head">
+				<p class="label">Toolkit</p>
+				<h2 id="toolkit-title">What I reach for, grouped the way the work comes.</h2>
+			</header>
 
-			<div class="grid">
-				<div class="cell"><h3>LLMs and generation</h3><p>LoRA fine-tuning, prompt engineering, RAG with hybrid search and cross-encoder reranking in Qdrant, LangGraph and MCP, evaluation with RAGAS and LLM-as-judge.</p></div>
-				<div class="cell"><h3>Deployment</h3><p>On-premise GPU inference with vLLM, SGLang and NVIDIA DGX; Docker, Kubernetes, Terraform; CI/CD on GitLab and GitHub; AWS and Azure AI Foundry.</p></div>
-				<div class="cell"><h3>Product surface</h3><p>Next.js, REST APIs, microservices, PostgreSQL and Supabase with row-level security, Redis.</p></div>
-				<div class="cell"><h3>Machine learning</h3><p>Python, PyTorch, TensorFlow, scikit-learn, time-series forecasting, NLP, quantization-aware training.</p></div>
-				<div class="cell"><h3>Speech and documents</h3><p>Whisper and NVIDIA Parakeet, speaker diarization, summarization, text-to-speech, OCR.</p></div>
-				<div class="cell"><h3>Regulated software</h3><p>EU MDR, IEC 62304, ISO 13485 and the EU AI Act, the part that decides whether a model is allowed to ship.</p></div>
+			<div class="kit">
+				<div class="kit-group"><h3>LLMs and agents</h3><ul class="tags"><li>LoRA fine-tuning</li><li>Hugging Face PEFT</li><li>Prompt engineering</li><li>LangGraph</li><li>Multi-agent systems</li><li>MCP</li><li>Azure OpenAI</li><li>Claude API</li></ul></div>
+				<div class="kit-group"><h3>Retrieval and evaluation</h3><ul class="tags"><li>RAG</li><li>Qdrant hybrid search</li><li>Cross-encoder reranking</li><li>FAISS</li><li>RAGAS</li><li>LLM-as-judge</li><li>A/B testing</li><li>Langfuse</li><li>MLflow</li><li>Weights &amp; Biases</li></ul></div>
+				<div class="kit-group"><h3>Serving and infrastructure</h3><ul class="tags"><li>vLLM</li><li>SGLang</li><li>On-premise GPU inference</li><li>Docker</li><li>Kubernetes</li><li>Terraform</li><li>GitLab CI</li><li>GitHub</li><li>AWS</li><li>Azure AI Foundry</li><li>SLURM</li><li>PyTorch DDP</li></ul></div>
+				<div class="kit-group"><h3>Speech and documents</h3><ul class="tags"><li>Whisper</li><li>NVIDIA Parakeet</li><li>Speaker diarization</li><li>Text to speech</li><li>OCR</li></ul></div>
+				<div class="kit-group"><h3>Machine learning and data</h3><ul class="tags"><li>Python</li><li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>SQL</li><li>Time-series forecasting</li><li>NLP</li><li>Knowledge graphs</li><li>Quantization-aware training</li></ul></div>
+				<div class="kit-group"><h3>Product engineering</h3><ul class="tags"><li>TypeScript</li><li>React</li><li>Next.js</li><li>REST APIs</li><li>Microservices</li><li>Async Python</li><li>pytest</li><li>PostgreSQL</li><li>Supabase with RLS</li><li>Redis</li><li>Claude Code</li></ul></div>
+				<div class="kit-group kit-group--wide"><h3>Regulated software</h3><ul class="tags"><li>EU MDR</li><li>IEC 62304</li><li>ISO 13485</li><li>EU AI Act</li><li>GDPR</li></ul><p>The part that decides whether a model is allowed to ship.</p></div>
 			</div>
 		</div>
 	</section>
 
 	<section class="section" id="education" aria-labelledby="education-title">
-		<div class="shell">
-			<p class="eyebrow">Education and credentials</p>
-			<h2 id="education-title">Trained as an engineer, then taught myself the <em>models</em>.</h2>
+		<div class="shell split split--head">
+			<header class="section-head section-head--sticky">
+				<p class="label">Education</p>
+				<h2 id="education-title">Mechanical engineering first, then machine learning.</h2>
+			</header>
 
-			<div class="list">
-				<article class="item">
-					<p class="card-kicker">2022 to 2026</p>
-					<h3>M.Sc. Computational Modeling and Simulation, TU Dresden</h3>
-					<p>Final grade 1.7. Computational Engineering track, focused on machine learning and data science. Thesis at ScaDS.AI on knowledge-graph and neuro-symbolic diagnosis prediction.</p>
+			<div class="records">
+				<article class="record">
+					<p class="record-meta">TU Dresden, 2022 to 2026, grade 1.7</p>
+					<h3>M.Sc. Computational Modeling and Simulation</h3>
+					<p>Computational Engineering track, focused on machine learning, deep learning and data science. Thesis at ScaDS.AI on knowledge-graph and neuro-symbolic diagnosis prediction, shown above under selected work.</p>
 				</article>
-				<article class="item">
-					<p class="card-kicker">2016 to 2020</p>
-					<h3>B.Tech. Mechanical Engineering, Manipal Institute of Technology</h3>
-					<p>CGPA 8.81 out of 10, minor in Machine Design. Thesis on engine emissions using design of experiments and machine learning.</p>
-				</article>
-				<article class="item">
-					<p class="card-kicker">Certifications</p>
-					<h3>IBM, DeepLearning.AI, University of Michigan, Vanderbilt</h3>
-					<p>Python for Data Science and AI, Data Analysis and Visualization, Neural Networks and Deep Learning, Machine Learning A to Z, Using Python to Access Web Data, Introduction to Programming with MATLAB.</p>
-				</article>
-				<article class="item">
-					<p class="card-kicker">Languages</p>
-					<h3>English fluent, German basic</h3>
-					<p>Plus Hindi, Malayalam and Gujarati.</p>
-				</article>
-			</div>
-		</div>
-	</section>
-	<section class="section" id="research" aria-labelledby="research-title">
-		<div class="shell">
-			<p class="eyebrow">Research and recognition</p>
-			<h2 id="research-title">One paper, one patent, one team that taught me to <em>ship</em>.</h2>
-
-			<div class="list">
-				<article class="item">
-					<p class="card-kicker">IEEE ACDSA 2024</p>
-					<h3>Enlarging the time budget for neural network based predictors for access interval prediction</h3>
-					<p>Friedrich, Sivasankar, Matúš, Fettweis, Vodafone Chair, TU Dresden. <a class="inline" href="https://doi.org/10.1109/ACDSA59508.2024.10467779">doi:10.1109/ACDSA59508.2024.10467779</a></p>
-				</article>
-				<article class="item">
-					<p class="card-kicker">Patent granted · 2024</p>
-					<h3>A System for Ejection</h3>
-					<p>Application 201941044944, a canister-aided gas ejection mechanism for the sounding rocket Team thrustMIT flew at Spaceport America 2019.</p>
-				</article>
-				<article class="item">
-					<p class="card-kicker">Recognition</p>
-					<h3>Rising Star Award, L&amp;T Technology Services</h3>
-					<p>Also a Recognition of Leadership Award at Manipal, for leading a team of 24 as Mechanical Head and Deputy Project Manager.</p>
+				<article class="record">
+					<p class="record-meta">Manipal Institute of Technology, 2016 to 2020, CGPA 8.81 of 10</p>
+					<h3>B.Tech. Mechanical Engineering</h3>
+					<p>Minor in Machine Design. Thesis on optimizing engine emissions with numerical modelling, design of experiments and machine learning.</p>
 				</article>
 			</div>
 		</div>
@@ -238,12 +376,12 @@
 	<section class="section section--cta" aria-labelledby="cta-title">
 		<div class="shell cta-grid">
 			<div>
-				<p class="eyebrow">Start a conversation</p>
-				<h2 id="cta-title">Open to AI engineering roles in Germany and <em>the EU</em>.</h2>
+				<p class="label">Start a conversation</p>
+				<h2 id="cta-title">Open to AI engineering roles in Germany and the EU.</h2>
 				<p class="prose">Based in Trier, open to relocating. English fluent, German basic, plus Hindi, Malayalam and Gujarati.</p>
 			</div>
 			<div class="cta-actions">
-				<a class="btn btn-dark" href="mailto:arjun.sivasankar@gmail.com">arjun.sivasankar@gmail.com <span aria-hidden="true">↗</span></a>
+				<a class="btn btn-light" href="mailto:arjun.sivasankar@gmail.com">arjun.sivasankar@gmail.com <span aria-hidden="true">↗</span></a>
 				<p class="cta-links">
 					<a href="https://www.linkedin.com/in/arjun-sivasankar-381380155/">LinkedIn</a>
 					<a href="https://github.com/Arjun-Sivasankar">GitHub</a>
@@ -257,18 +395,19 @@
 <footer class="foot">
 	<div class="shell foot-grid">
 		<div>
-			<p class="brand-text">Arjun Sivasankar<small>AI Engineer · Trier, Germany</small></p>
+			<p class="brand-text">Arjun Sivasankar<small>AI Engineer, Trier, Germany</small></p>
 			<p class="foot-note">© <span id="year">2026</span> Arjun Sivasankar</p>
 		</div>
 		<nav class="foot-links" aria-label="Footer">
 			<a href="#work">Work</a>
 			<a href="#path">Experience</a>
-			<a href="#toolkit">Toolkit</a>
 			<a href="#research">Research</a>
+			<a href="#toolkit">Toolkit</a>
+			<a href="#education">Education</a>
 		</nav>
 	</div>
 </footer>
 
-<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/site.js?v=10" defer></script>
 </body>
 </html>

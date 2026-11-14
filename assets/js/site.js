@@ -1,274 +1,320 @@
-/* The intro: the portrait plays once, full screen, then hands over to the page. */
+/* arjun-sivasankar.github.io: progressive enhancement only.
+   The page is complete without this file; it adds the intro, the hero reel,
+   the live system diagrams, the current-section marker and the timeline rail. */
 (function () {
 	'use strict';
-
-	var intro = document.getElementById('intro');
-	var video = document.getElementById('intro-reel');
-	var skip = document.getElementById('intro-skip');
-	var hero = document.getElementById('reel');
-	if (!intro || !video) {
-		return;
-	}
 
 	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	var seen = false;
 
-	try {
-		seen = window.sessionStorage.getItem('intro-seen') === '1';
-	} catch (error) {
-		seen = false;
+	function play(video) {
+		if (!video || video.ended) { return; }
+		var attempt = video.play();
+		if (attempt && attempt.catch) { attempt.catch(function () {}); }
 	}
 
-	function dismiss(remember) {
-		intro.classList.add('is-out');
-		document.body.classList.remove('intro-running');
-		if (remember) {
-			try {
-				window.sessionStorage.setItem('intro-seen', '1');
-			} catch (error) {}
-		}
-		video.pause();
-		window.setTimeout(function () {
-			intro.hidden = true;
-		}, 850);
-		if (hero) {
-			var started = hero.play();
-			if (started && started.catch) {
-				started.catch(function () {});
-			}
-		}
-	}
-
-	if (seen || reduced) {
-		intro.hidden = true;
-		return;
-	}
-
-	intro.hidden = false;
-	document.body.classList.add('intro-running');
-
-	video.addEventListener('ended', function () { dismiss(true); });
-	video.addEventListener('error', function () { dismiss(true); });
-
-	if (skip) {
-		skip.addEventListener('click', function () { dismiss(true); });
-	}
-
-	var attempt = video.play();
-	if (attempt && attempt.catch) {
-		attempt.catch(function () { dismiss(true); });
-	}
-
-	document.addEventListener('keydown', function (event) {
-		if (event.key === 'Escape' && !intro.hidden) {
-			dismiss(true);
-		}
-	});
-}());
-/* Small, boring enhancements: the hero reel plays once, sections reveal, year. */
-(function () {
-	'use strict';
-
-	var video = document.getElementById('reel');
-	var hero = document.querySelector('.hero');
-	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-	if (video) {
-		function fail() {
-			if (hero) {
-				hero.classList.add('no-video');
-			}
-		}
-
-		video.addEventListener('error', fail);
-		var source = video.querySelector('source');
-		if (source) {
-			source.addEventListener('error', fail);
-		}
-
-		if (reduced) {
-			video.removeAttribute('autoplay');
-			video.pause();
-		} else {
-			var attempt = video.play();
-			if (attempt && attempt.catch) {
-				attempt.catch(function () {});
-			}
-
-			if ('IntersectionObserver' in window) {
-				new IntersectionObserver(function (entries) {
-					if (!entries[0].isIntersecting) {
-						video.pause();
-					} else if (!video.ended) {
-						var resumed = video.play();
-						if (resumed && resumed.catch) {
-							resumed.catch(function () {});
-						}
-					}
-				}, { threshold: 0.2 }).observe(video);
-			}
-
-			document.addEventListener('visibilitychange', function () {
-				if (document.hidden) {
-					video.pause();
-				} else if (!video.ended) {
-					var back = video.play();
-					if (back && back.catch) {
-						back.catch(function () {});
-					}
-				}
-			});
-		}
-	}
-
-	var items = Array.prototype.slice.call(
-		document.querySelectorAll('.card, .steps li, .cell, .item, .statement, .prose')
-	);
-
-	if (items.length && 'IntersectionObserver' in window && !reduced) {
-		items.forEach(function (item, index) {
-			item.classList.add('reveal');
-			item.style.setProperty('--i', index % 3);
-		});
-
-		var observer = new IntersectionObserver(function (entries) {
-			entries.forEach(function (entry) {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('in');
-					observer.unobserve(entry.target);
-				}
-			});
-		}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-		items.forEach(function (item) { observer.observe(item); });
-	}
-
-	var year = document.getElementById('year');
-	if (year) {
-		year.textContent = new Date().getFullYear();
-	}
-}());
-
-/* Playback resilience: some browsers refuse the first play() or stall on metadata.
-   Nudge politely, then give the viewer a button rather than a frozen frame. */
-(function () {
-	'use strict';
-
-	var hero = document.getElementById('reel');
-	var introVideo = document.getElementById('intro-reel');
-
-	function unlock(video) {
+	function forceMuted(video) {
 		video.muted = true;
 		video.defaultMuted = true;
 		video.setAttribute('muted', '');
 		video.playsInline = true;
 		video.setAttribute('playsinline', '');
-		video.setAttribute('webkit-playsinline', '');
 	}
 
-	function nudge(video) {
-		if (!video || video.ended) {
-			return;
-		}
-		var attempt = video.play();
-		if (attempt && attempt.catch) {
-			attempt.catch(function () {});
-		}
+	/* ------------------------------------------------------------ hero reel */
+
+	var hero = document.querySelector('.hero');
+	var reel = document.getElementById('reel');
+	var heroReady = false;
+
+	function startHero(fromTop) {
+		if (!reel || reduced) { return; }
+		heroReady = true;
+		if (fromTop) { reel.currentTime = 0; }
+		play(reel);
+
+		/* some browsers refuse the first play(): nudge, then offer a button */
+		[600, 1600, 3000].forEach(function (delay) {
+			window.setTimeout(function () {
+				if (!reel.paused || reel.ended) { return; }
+				play(reel);
+				if (delay === 3000 && reel.paused && !document.querySelector('.reel-play-btn')) {
+					var button = document.createElement('button');
+					button.type = 'button';
+					button.className = 'reel-play-btn';
+					button.textContent = 'Play portrait';
+					button.addEventListener('click', function () {
+						play(reel);
+						button.remove();
+					});
+					reel.parentNode.appendChild(button);
+				}
+			}, delay);
+		});
 	}
 
-	[hero, introVideo].forEach(function (video) {
-		if (!video) {
-			return;
-		}
-		unlock(video);
-		video.addEventListener('canplay', function () { nudge(video); });
-		nudge(video);
-	});
+	if (reel) {
+		forceMuted(reel);
+		var fail = function () { if (hero) { hero.classList.add('no-video'); } };
+		reel.addEventListener('error', fail);
+		var source = reel.querySelector('source');
+		if (source) { source.addEventListener('error', fail); }
 
-	if (!hero) {
-		return;
+		if (!reduced && 'IntersectionObserver' in window) {
+			new IntersectionObserver(function (entries) {
+				if (!heroReady) { return; }
+				if (entries[0].isIntersecting) { play(reel); } else { reel.pause(); }
+			}, { threshold: 0.2 }).observe(reel);
+		}
+
+		document.addEventListener('visibilitychange', function () {
+			if (!heroReady) { return; }
+			if (document.hidden) { reel.pause(); } else { play(reel); }
+		});
 	}
 
-	document.addEventListener('pointerdown', function resume() {
-		nudge(hero);
-		document.removeEventListener('pointerdown', resume);
-	}, { passive: true });
+	/* ------------------------------------------------------------ intro */
 
-	[600, 1600, 3000].forEach(function (delay) {
-		window.setTimeout(function () {
-			if (!hero.paused || hero.ended) {
-				return;
-			}
-			nudge(hero);
-			if (delay === 3000 && hero.paused && !document.querySelector('.reel-play-btn')) {
-				var button = document.createElement('button');
-				button.type = 'button';
-				button.className = 'reel-play-btn';
-				button.textContent = 'Play portrait';
-				button.addEventListener('click', function () {
-					nudge(hero);
-					button.remove();
-				});
-				hero.parentNode.appendChild(button);
-			}
-		}, delay);
-	});
-}());
-/* Audit fixes: keep the hero alive after the intro, respect reduced motion,
-   and stop the intro from trapping keyboard users behind the overlay. */
-(function () {
-	'use strict';
-
-	var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	var intro = document.getElementById('intro');
-	var hero = document.getElementById('reel');
-	var skip = document.getElementById('intro-skip');
-	var main = document.getElementById('top');
-
-	if (reduced) {
-		[document.getElementById('reel'), document.getElementById('intro-reel')].forEach(function (v) {
-			if (v) { v.pause(); v.removeAttribute('autoplay'); }
-		});
-		if (hero) { hero.removeAttribute('autoplay'); }
-		return;
-	}
-
-	function resetHero() {
-		if (!hero) { return; }
-		hero.currentTime = 0;
-		var played = hero.play();
-		if (played && played.catch) { played.catch(function () {}); }
-	}
-
-	if (!intro) { return; }
-
-	var regions = [document.querySelector('header'), document.querySelector('main'), document.querySelector('footer')];
-
-	function lock(on) {
-		regions.forEach(function (region) {
-			if (!region) { return; }
-			if (on) { region.setAttribute('inert', ''); region.setAttribute('aria-hidden', 'true'); }
-			else { region.removeAttribute('inert'); region.removeAttribute('aria-hidden'); }
-		});
-	}
-
-	if (!intro.hidden) {
-		lock(true);
-		if (skip) { skip.focus(); }
-	}
-
 	var introVideo = document.getElementById('intro-reel');
-	if (introVideo) {
-		introVideo.addEventListener('ended', resetHero);
-		introVideo.addEventListener('error', resetHero);
-	}
-	if (skip) { skip.addEventListener('click', resetHero); }
+	var skip = document.getElementById('intro-skip');
+	var seen = false;
 
-	var watcher = setInterval(function () {
-		if (intro.hidden) {
+	try { seen = window.sessionStorage.getItem('intro-seen') === '1'; } catch (error) { seen = false; }
+
+	if (!intro || !introVideo || seen || reduced) {
+		if (intro) { intro.hidden = true; }
+		startHero(false);
+	} else {
+		var regions = [document.querySelector('header.nav'), document.querySelector('main'), document.querySelector('footer')];
+		var lock = function (on) {
+			regions.forEach(function (region) {
+				if (!region) { return; }
+				if (on) { region.setAttribute('inert', ''); region.setAttribute('aria-hidden', 'true'); }
+				else { region.removeAttribute('inert'); region.removeAttribute('aria-hidden'); }
+			});
+		};
+		var done = false;
+		var dismiss = function () {
+			if (done) { return; }
+			done = true;
+			try { window.sessionStorage.setItem('intro-seen', '1'); } catch (error) {}
+			intro.classList.add('is-out');
+			document.body.classList.remove('intro-running');
+			introVideo.pause();
 			lock(false);
-			if (main) { main.focus(); }
-			clearInterval(watcher);
+			window.setTimeout(function () { intro.hidden = true; }, 850);
+			startHero(true);
+		};
+
+		intro.hidden = false;
+		document.body.classList.add('intro-running');
+		lock(true);
+		forceMuted(introVideo);
+
+		introVideo.addEventListener('ended', dismiss);
+		introVideo.addEventListener('error', dismiss);
+		if (skip) {
+			skip.addEventListener('click', dismiss);
+			skip.focus();
 		}
-	}, 250);
+		document.addEventListener('keydown', function (event) {
+			if (event.key === 'Escape') { dismiss(); }
+		});
+
+		var attempt = introVideo.play();
+		if (attempt && attempt.catch) { attempt.catch(dismiss); }
+	}
+
+	/* ------------------------------------------------------------ system diagrams */
+
+	function closestLength(path, x, y) {
+		var total = path.getTotalLength();
+		var best = 0;
+		var bestDist = Infinity;
+		for (var s = 0; s <= total; s += 2) {
+			var p = path.getPointAtLength(s);
+			var d = (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
+			if (d < bestDist) { bestDist = d; best = s; }
+		}
+		return best;
+	}
+
+	function setupDiagram(figure) {
+		var svg = figure.querySelector('svg');
+		var say = figure.querySelector('.sys-say');
+		var paths = Array.prototype.slice.call(svg.querySelectorAll('.sys-path'));
+		var glows = svg.querySelectorAll('.packet-glow');
+		var lanes = [];
+
+		/* packets travel behind the nodes, so they read as entering each stage */
+		var firstNode = svg.querySelector('.node');
+		if (firstNode) {
+			Array.prototype.forEach.call(svg.querySelectorAll('.packet-glow, .packet'), function (dot) {
+				svg.insertBefore(dot, firstNode);
+			});
+		}
+
+		Array.prototype.forEach.call(svg.querySelectorAll('.packet'), function (packet) {
+			var index = Number(packet.getAttribute('data-path')) || 0;
+			var path = paths[index];
+			if (!path) { return; }
+			var glow = null;
+			Array.prototype.forEach.call(glows, function (g) {
+				if (Number(g.getAttribute('data-path')) === index) { glow = g; }
+			});
+			var nodes = Array.prototype.slice.call(svg.querySelectorAll('.node[data-path="' + index + '"]'))
+				.map(function (node) {
+					var box = node.querySelector('rect').getBBox();
+					return { el: node, at: closestLength(path, box.x + box.width / 2, box.y + box.height / 2) };
+				})
+				.sort(function (a, b) { return a.at - b.at; });
+
+			lanes.push({
+				path: path,
+				packet: packet,
+				glow: glow,
+				nodes: nodes,
+				total: path.getTotalLength(),
+				duration: (Number(packet.getAttribute('data-dur')) || 6) * 1000,
+				current: null
+			});
+		});
+
+		var running = false;
+		var frame = 0;
+		var origin = 0;
+		var elapsed = 0;
+
+		function tick(now) {
+			if (!running) { return; }
+			var time = now - origin;
+			lanes.forEach(function (lane) {
+				var distance = (time % lane.duration) / lane.duration * lane.total;
+				var point = lane.path.getPointAtLength(distance);
+				lane.packet.setAttribute('cx', point.x);
+				lane.packet.setAttribute('cy', point.y);
+				if (lane.glow) {
+					lane.glow.setAttribute('cx', point.x);
+					lane.glow.setAttribute('cy', point.y);
+				}
+				var active = null;
+				lane.nodes.forEach(function (node) {
+					if (distance + 4 >= node.at) { active = node; }
+				});
+				if (active !== lane.current) {
+					if (lane.current) { lane.current.el.classList.remove('on'); }
+					if (active) {
+						active.el.classList.add('on');
+						if (say) { say.textContent = active.el.getAttribute('data-say'); }
+					}
+					lane.current = active;
+				}
+			});
+			frame = window.requestAnimationFrame(tick);
+		}
+
+		function start() {
+			if (running || reduced) { return; }
+			running = true;
+			figure.classList.add('is-live');
+			origin = performance.now() - elapsed;
+			frame = window.requestAnimationFrame(tick);
+		}
+
+		function stop() {
+			if (!running) { return; }
+			running = false;
+			elapsed = performance.now() - origin;
+			window.cancelAnimationFrame(frame);
+			figure.classList.remove('is-live');
+		}
+
+		return { start: start, stop: stop };
+	}
+
+	var figures = Array.prototype.slice.call(document.querySelectorAll('[data-sys]'));
+
+	if (figures.length) {
+		if (reduced || !('IntersectionObserver' in window)) {
+			figures.forEach(function (figure) { figure.classList.add('is-seen'); });
+		} else {
+			var diagrams = new Map();
+			figures.forEach(function (figure) { diagrams.set(figure, setupDiagram(figure)); });
+
+			var watcher = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					var diagram = diagrams.get(entry.target);
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-seen');
+						diagram.start();
+					} else {
+						diagram.stop();
+					}
+				});
+			}, { threshold: 0.35 });
+
+			figures.forEach(function (figure) { watcher.observe(figure); });
+
+			document.addEventListener('visibilitychange', function () {
+				if (document.hidden) { diagrams.forEach(function (d) { d.stop(); }); }
+			});
+		}
+	}
+
+	/* ------------------------------------------------------------ current section in the nav */
+
+	var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+
+	if (links.length && 'IntersectionObserver' in window) {
+		var byId = {};
+		links.forEach(function (link) { byId[link.getAttribute('href').slice(1)] = link; });
+
+		var spy = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				if (!entry.isIntersecting) { return; }
+				links.forEach(function (link) { link.classList.remove('is-current'); });
+				var link = byId[entry.target.id];
+				if (link) { link.classList.add('is-current'); }
+			});
+		}, { rootMargin: '-45% 0px -50% 0px' });
+
+		Object.keys(byId).forEach(function (id) {
+			var section = document.getElementById(id);
+			if (section) { spy.observe(section); }
+		});
+	}
+
+	/* ------------------------------------------------------------ timeline rail */
+
+	var timeline = document.querySelector('.timeline');
+
+	if (timeline) {
+		var stops = Array.prototype.slice.call(timeline.querySelectorAll('li'));
+		var pending = false;
+
+		var update = function () {
+			pending = false;
+			var mark = window.innerHeight * 0.6;
+			var box = timeline.getBoundingClientRect();
+			var progress = Math.min(1, Math.max(0, (mark - box.top) / box.height));
+			timeline.style.setProperty('--progress', progress.toFixed(4));
+			stops.forEach(function (stop) {
+				stop.classList.toggle('is-past', stop.getBoundingClientRect().top + 8 < mark);
+			});
+		};
+
+		window.addEventListener('scroll', function () {
+			if (!pending) {
+				pending = true;
+				window.requestAnimationFrame(update);
+			}
+		}, { passive: true });
+		window.addEventListener('resize', update);
+		update();
+	}
+
+	/* ------------------------------------------------------------ year */
+
+	var year = document.getElementById('year');
+	if (year) { year.textContent = new Date().getFullYear(); }
 }());
