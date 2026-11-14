@@ -26,8 +26,11 @@
 	var reel = document.getElementById('reel');
 	var heroReady = false;
 
+	/* The portrait is short, muted and plays once, so it plays even when the
+	   system asks for reduced motion (as the site always did); only the full-screen
+	   intro and the looping diagrams step back for reduced motion. */
 	function startHero(fromTop) {
-		if (!reel || reduced) { return; }
+		if (!reel) { return; }
 		heroReady = true;
 		if (fromTop) { reel.currentTime = 0; }
 		play(reel);
@@ -59,7 +62,7 @@
 		var source = reel.querySelector('source');
 		if (source) { source.addEventListener('error', fail); }
 
-		if (!reduced && 'IntersectionObserver' in window) {
+		if ('IntersectionObserver' in window) {
 			new IntersectionObserver(function (entries) {
 				if (!heroReady) { return; }
 				if (entries[0].isIntersecting) { play(reel); } else { reel.pause(); }
