@@ -20,7 +20,7 @@
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/SchibstedGrotesk.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="/assets/css/site.css?v=11">
+<link rel="stylesheet" href="/assets/css/site.css?v=13">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -95,30 +95,35 @@
 
 			<article class="case" aria-labelledby="case-superdoc">
 				<div class="case-copy">
-					<p class="case-meta">Docs4D, with a German university hospital</p>
+					<p class="case-meta">Docs4D, piloted with a German university hospital</p>
 					<h3 id="case-superdoc">SuperDoc, a clinical assistant patients can talk to</h3>
-					<p>A patient-facing multi-agent assistant for chat and voice, built in LangGraph. A separate validation layer wrapped the generation core, designed for EU MDR conformity.</p>
+					<p>A patient-facing conversational clinical assistant for chat and real-time voice, built as a LangGraph multi-agent system and grounded in clinical guidelines through RAG. A separate rule-based validation layer with deterministic checks wrapped the generation core, designed for EU MDR conformity.</p>
 					<ul class="case-points">
-						<li>Built the real-time voice agent, speech to text to LLM to text to speech, as back-end services behind a gateway.</li>
-						<li>Integrated the voice agent into the Guardian iOS and Android app.</li>
-						<li>Ran as Docker services on our own infrastructure, so patient data never left it.</li>
+						<li>MCP tool calling for patient details, the latest vitals and recent measurements, so the assistant could plug into any platform.</li>
+						<li>Built the real-time voice agent as back-end services behind a gateway: NVIDIA Parakeet streaming speech to text with a Whisper fallback, and Qwen3-TTS through vLLM-Omni with a CosyVoice 2 fallback.</li>
+						<li>An evaluation agent checked every response before it was spoken. About 1.5 seconds end to end, a deliberate trade for safety.</li>
+						<li>Integrated into the Guardian iOS and Android app, running as Docker services on our own infrastructure so patient data never left it.</li>
 					</ul>
 					<ul class="tags" aria-label="Stack">
-						<li>LangGraph</li><li>Multi-agent</li><li>Speech to text</li><li>Text to speech</li><li>Docker</li>
+						<li>LangGraph</li><li>MCP</li><li>RAG</li><li>NVIDIA Parakeet</li><li>Qwen3-TTS</li><li>vLLM-Omni</li><li>Docker</li>
 					</ul>
 				</div>
 				<figure class="sys" data-sys>
-					<svg viewBox="0 0 480 300" role="img" aria-labelledby="sys1-title">
-						<title id="sys1-title">SuperDoc voice loop: Guardian app, gateway, speech to text, LangGraph agents, validation layer, text to speech, back to the app.</title>
+					<svg viewBox="0 0 480 330" role="img" aria-labelledby="sys1-title">
+						<title id="sys1-title">SuperDoc voice loop: Guardian app, gateway, speech to text, LangGraph agents with MCP tools, validation layer with rule-based checks and an evaluation agent, text to speech, back to the app.</title>
+						<path class="sys-link" d="M405,252 V280"/>
+						<g class="tool" aria-hidden="true"><rect x="350" y="280" width="110" height="34" rx="10"/><text x="405" y="302">MCP tools</text></g>
+						<text class="sys-row sys-row--mid" x="240" y="284">rule-based checks</text>
+						<text class="sys-row sys-row--mid" x="240" y="301">+ evaluation agent</text>
 						<path class="sys-path" d="M75,70 H405 V230 H75 Z"/>
 						<text class="sys-note" x="240" y="146">Patient data never leaves</text>
 						<text class="sys-note" x="240" y="164">our own infrastructure</text>
 						<g class="node" data-path="0" data-say="The patient speaks in the Guardian app."><rect x="7" y="48" width="136" height="44" rx="12"/><text x="75" y="75">Guardian app</text></g>
 						<g class="node" data-path="0" data-say="The gateway routes the audio to the voice services."><rect x="172" y="48" width="136" height="44" rx="12"/><text x="240" y="75">Gateway</text></g>
-						<g class="node" data-path="0" data-say="Speech to text transcribes it as it streams."><rect x="337" y="48" width="136" height="44" rx="12"/><text x="405" y="75">Speech to text</text></g>
-						<g class="node" data-path="0" data-say="LangGraph agents plan and draft the answer."><rect x="337" y="208" width="136" height="44" rx="12"/><text x="405" y="235">LangGraph agents</text></g>
-						<g class="node node--guard" data-path="0" data-say="The validation layer checks the draft before the patient hears it."><rect x="172" y="208" width="136" height="44" rx="12"/><text x="240" y="235">Validation layer</text></g>
-						<g class="node" data-path="0" data-say="Text to speech answers back in real time."><rect x="7" y="208" width="136" height="44" rx="12"/><text x="75" y="235">Text to speech</text></g>
+						<g class="node" data-path="0" data-say="Parakeet transcribes it as it streams, with Whisper as the fallback."><rect x="337" y="48" width="136" height="44" rx="12"/><text x="405" y="75">Speech to text</text></g>
+						<g class="node node--agents" data-path="0" data-say="LangGraph agents draft the answer from clinical guidelines, calling MCP tools for the patient's details and vitals."><rect x="337" y="208" width="136" height="44" rx="12"/><text x="405" y="235">LangGraph agents</text></g>
+						<g class="node node--guard" data-path="0" data-say="Rule-based checks and an evaluation agent clear the draft before the patient hears it."><rect x="172" y="208" width="136" height="44" rx="12"/><text x="240" y="235">Validation layer</text></g>
+						<g class="node" data-path="0" data-say="Qwen3-TTS speaks the answer, with CosyVoice 2 as the fallback."><rect x="7" y="208" width="136" height="44" rx="12"/><text x="75" y="235">Text to speech</text></g>
 						<circle class="packet-glow" data-path="0" r="13"/>
 						<circle class="packet" data-path="0" data-dur="7" r="5"/>
 					</svg>
@@ -130,14 +135,15 @@
 				<div class="case-copy">
 					<p class="case-meta">Docs4D</p>
 					<h3 id="case-rag">A private LLM, with retrieval under a second</h3>
-					<p>Fine-tuned an open-weight LLM with LoRA for the clinical domain and served it through a vLLM API on in-house NVIDIA GPUs, keeping patient data off third-party APIs. Then built the retrieval around it, end to end.</p>
+					<p>Fine-tuned Qwen3-30B-A3B, a mixture-of-experts model, with LoRA for the clinical domain and served it through a vLLM API on in-house NVIDIA GPUs, keeping patient data off third-party APIs. Then built the retrieval around it, end to end.</p>
 					<ul class="case-points">
 						<li>Document parsing and hierarchical chunking into Qdrant hybrid search with cross-encoder reranking.</li>
 						<li>Batching the reranker brought retrieval under 1 second with no loss in context recall.</li>
 						<li>Scored with RAGAS and a self-hosted LLM judge, traced in Langfuse and tracked in MLflow. A/B-tested agent prompts and benchmarked open-weight models to pick the baseline.</li>
+						<li>Everything versioned: prompts in Langfuse prompt management, training data in Git LFS.</li>
 					</ul>
 					<ul class="tags" aria-label="Stack">
-						<li>LoRA</li><li>vLLM</li><li>NVIDIA GPUs</li><li>Qdrant</li><li>RAGAS</li><li>Langfuse</li><li>MLflow</li>
+						<li>Qwen3-30B-A3B</li><li>LoRA</li><li>vLLM</li><li>NVIDIA GPUs</li><li>Qdrant</li><li>RAGAS</li><li>Langfuse</li><li>MLflow</li><li>Git LFS</li>
 					</ul>
 				</div>
 				<figure class="sys" data-sys>
@@ -151,7 +157,7 @@
 						<g class="node" data-path="0" data-say="Hierarchical chunking keeps sections together."><rect x="337" y="38" width="136" height="44" rx="12"/><text x="405" y="65">Hierarchical chunks</text></g>
 						<g class="node" data-path="0" data-say="Hybrid search in Qdrant combines dense and keyword matches."><rect x="337" y="158" width="136" height="44" rx="12"/><text x="405" y="185">Hybrid search</text></g>
 						<g class="node" data-path="0" data-say="A cross-encoder reranks the hits, batched to stay under a second."><rect x="172" y="158" width="136" height="44" rx="12"/><text x="240" y="185">Batched reranker</text></g>
-						<g class="node" data-path="0" data-say="The fine-tuned model answers on our own GPU, with no third-party API."><rect x="7" y="158" width="136" height="44" rx="12"/><text x="75" y="185">LoRA LLM on vLLM</text></g>
+						<g class="node" data-path="0" data-say="The LoRA-tuned Qwen3 model answers on our own GPUs, with no third-party API."><rect x="7" y="158" width="136" height="44" rx="12"/><text x="75" y="185">LoRA LLM on vLLM</text></g>
 						<path class="sys-bracket" d="M172,214 V222 H473 V214"/>
 						<text class="sys-metric" x="322" y="246">retrieval under 1 second</text>
 						<text class="sys-row sys-row--mid" x="75" y="228">in-house NVIDIA GPUs</text>
@@ -166,13 +172,13 @@
 				<div class="case-copy">
 					<p class="case-meta">Docs4D</p>
 					<h3 id="case-medscribe">MedScribe, live clinical transcription</h3>
-					<p>Designed the speech pipeline. Streaming NVIDIA Parakeet ASR put text on screen while the clinician spoke, and Whisper corrected it in the background and separated the speakers. Each clinic's data was kept isolated from every other clinic's.</p>
+					<p>Designed the speech pipeline. Streaming NVIDIA Parakeet ASR, run through NeMo as its own Docker service, put text on screen while the clinician spoke, and Whisper corrected it in the background and separated the speakers. Each clinic's data was kept isolated from every other clinic's.</p>
 					<ul class="case-points">
 						<li>Integrated into Frontline, the Next.js medical dashboard I developed, next to DocScan.</li>
 						<li>Followed an earlier on-premise service I built at Vodafone for the 6G-HEALTH research project, which transcribed, separated speakers and summarized doctor and patient conversations in real time.</li>
 					</ul>
 					<ul class="tags" aria-label="Stack">
-						<li>NVIDIA Parakeet</li><li>Whisper</li><li>Speaker diarization</li><li>Next.js</li>
+						<li>NVIDIA Parakeet</li><li>NeMo</li><li>Whisper</li><li>Speaker diarization</li><li>Next.js</li>
 					</ul>
 				</div>
 				<figure class="sys" data-sys>
@@ -207,9 +213,10 @@
 					<h3 id="case-thesis">Diagnosis prediction with a knowledge graph</h3>
 					<p>Predicted ICD-9 diagnosis codes from MIMIC-IV patient records by giving LoRA-fine-tuned LLMs paths from the UMLS knowledge graph. Compared 3 backbones and 4 pipelines under a fixed top-12 budget, on 53,561 admissions for current-visit coding.</p>
 					<ul class="case-points">
-						<li>Graph paths lifted micro-F1 from 0.459 to 0.503 (+9.7%) on Llama-3.1-8B, and Tail-50 F1 by 26% to 46%.</li>
+						<li>Graph paths lifted micro-F1 from 0.459 to 0.503 (+9.7%) on Llama-3.1-8B, and rare-code F1 by 26% to 46%.</li>
 						<li>Generating text and grounding it with SapBERT and FAISS beat generating codes directly by about 0.20 micro-F1.</li>
-						<li>Trained with PyTorch DDP on multiple GPUs under SLURM on the TU Dresden HPC cluster, tracked in Weights &amp; Biases.</li>
+						<li>Cohort features built from structured events and clinical notes under strict leakage control.</li>
+						<li>Trained with PyTorch DDP on 8 NVIDIA H100 GPUs under SLURM on the TU Dresden HPC cluster, tracked in Weights &amp; Biases.</li>
 					</ul>
 					<ul class="tags" aria-label="Stack">
 						<li>Llama 3.1</li><li>Hugging Face PEFT</li><li>UMLS</li><li>SapBERT</li><li>FAISS</li><li>PyTorch DDP</li>
@@ -254,9 +261,11 @@
 				<dl class="shipped-list">
 					<div><dt>DocScan <span>Docs4D</span></dt><dd>An OCR service through which patients uploaded medical reports and invoices and sent them to the practitioners at their hospital organization.</dd></div>
 					<div><dt>Frontline <span>Docs4D</span></dt><dd>A medical dashboard in Next.js, TypeScript and React that brought MedScribe and DocScan together.</dd></div>
-					<div><dt>Production backend <span>Docs4D</span></dt><dd>SQL migrations and row-level security policies for the Supabase (PostgreSQL) production backend.</dd></div>
-					<div><dt>Docs as code <span>Docs4D</span></dt><dd>A GitLab pipeline for quality-management and medical-device software documentation, with linting, merge-request previews and releases.</dd></div>
-					<div><dt>Enterprise LLM agents <span>Vodafone</span></dt><dd>Built LLM agents and their MCP servers with enterprise customers on Azure OpenAI and Azure AI Foundry, from experiment to integration in their products and the Vodafone Assist platform.</dd></div>
+					<div><dt>Production backend <span>Docs4D</span></dt><dd>The services shipped as FastAPI APIs in Docker, on a Supabase (PostgreSQL) backend with SQL migrations and row-level security policies.</dd></div>
+					<div><dt>Medical-device process <span>Docs4D</span></dt><dd>ISO 14971 risk assessment along the IEC 62304 lifecycle, documented in a GitLab docs-as-code pipeline with linting, merge-request previews and releases.</dd></div>
+					<div><dt>Real-time avatar prototypes <span>Docs4D</span></dt><dd>Explored avatars for both runtimes: diffusion-based real-time rendering on GPU, and 3D Gaussian splatting rigged to the FLAME head model on CPU, where diffusion was too slow.</dd></div>
+					<div><dt>Enterprise LLM agents <span>Vodafone</span></dt><dd>Built LLM agents and their MCP servers with enterprise customers on Azure OpenAI and Azure AI Foundry, and worked on multi-agent architectures for the Vodafone Assist platform.</dd></div>
+					<div><dt>Invoice extraction <span>Vodafone</span></dt><dd>A multi-step workflow for an enterprise customer: OCR with Azure AI Document Intelligence, then LLM extraction validated against a Pydantic data model.</dd></div>
 					<div><dt>6G-HEALTH transcription <span>Vodafone</span></dt><dd>An on-premise service that transcribed, separated speakers and summarized doctor and patient conversations in real time to automate clinical notes.</dd></div>
 				</dl>
 			</div>
@@ -274,12 +283,12 @@
 				<li>
 					<p class="when"><time datetime="2020-01">Jan 2020</time> to <time datetime="2020-05">May 2020</time></p>
 					<h3>Automotive Research Intern <span>Gannet Engineering, Bangalore</span></h3>
-					<p>Bachelor's thesis. Planned engine test points with design of experiments and built regression and machine-learning models of NOx and soot emissions. The selected model met the target of under 10% prediction error.</p>
+					<p>Bachelor's thesis. Planned engine test points with design of experiments and built regression and machine-learning models of NOx and soot emissions, including XGBoost and LightGBM. The selected model met the target of under 10% prediction error, and the NOx and soot trade-off was then optimized in Cal-G.</p>
 				</li>
 				<li>
 					<p class="when"><time datetime="2021-01">Jan 2021</time> to <time datetime="2022-08">Aug 2022</time></p>
 					<h3>Associate Engineer, then Engineer <span>L&amp;T Technology Services</span></h3>
-					<p>Built Design Structure Matrices across a wind-turbine architecture and a Python network-analysis tool that generated them from correlation data. Automated PLM data extraction from Windchill with Selenium, validated in Power BI.</p>
+					<p>Wrote a Python network-analysis tool that built Design Structure Matrices from correlation data, classifying wind-turbine interfaces by criticality. Delivered work for the client Vestas in Denmark across time zones, carried out FMEA, and automated Windchill PLM data extraction with Selenium, validated in Power BI.</p>
 				</li>
 				<li>
 					<p class="when"><time datetime="2023-05">May 2023</time> to <time datetime="2024-10">Oct 2024</time></p>
@@ -289,12 +298,12 @@
 				<li>
 					<p class="when"><time datetime="2024-11">Nov 2024</time> to <time datetime="2025-09">Sep 2025</time></p>
 					<h3>Applied AI Intern / Student Assistant <span>Vodafone Group Services</span></h3>
-					<p>LLM agents and MCP servers with enterprise customers on Azure OpenAI and Azure AI Foundry, and the on-premise 6G-HEALTH transcription service.</p>
+					<p>Six months as an intern, then five as a student assistant. LLM agents and MCP servers with enterprise customers on Azure OpenAI and Azure AI Foundry, multi-agent architectures for Vodafone Assist, an invoice extraction workflow, and the on-premise 6G-HEALTH transcription service.</p>
 				</li>
 				<li>
 					<p class="when"><time datetime="2026-03">Mar 2026</time> to <time datetime="2026-11">Nov 2026</time></p>
 					<h3>AI Engineer <span>Docs4D, healthcare AI, Trier</span></h3>
-					<p>Self-hosted LLMs, retrieval, agents, voice and OCR for regulated clinical products: SuperDoc, MedScribe, DocScan and Frontline.</p>
+					<p>Self-hosted LLMs, retrieval, agents, voice and OCR for regulated clinical products: SuperDoc, piloted with a university hospital, plus MedScribe, DocScan and Frontline.</p>
 				</li>
 			</ol>
 		</div>
@@ -311,7 +320,12 @@
 				<article class="record">
 					<p class="record-meta">IEEE ACDSA 2024, paper</p>
 					<h3><a href="https://doi.org/10.1109/ACDSA59508.2024.10467779">Enlarging the time budget for neural network based predictors for access interval prediction <span aria-hidden="true">↗</span></a></h3>
-					<p>Friedrich, Sivasankar, Matúš, Fettweis. Vodafone Chair Mobile Communication Systems, TU Dresden.</p>
+					<p>Friedrich, Sivasankar, Matúš, Fettweis. Vodafone Chair Mobile Communication Systems, TU Dresden. <a class="inline" href="https://github.com/Arjun-Sivasankar/AIP">Code on GitHub</a></p>
+				</article>
+				<article class="record">
+					<p class="record-meta">Research project, Chair of Computer Graphics and Visualization, TU Dresden, 2024</p>
+					<h3><a href="https://github.com/Arjun-Sivasankar/Conductivity-Reconstruction-using-Invertible-Neural-Networks-after-sensor-reduction">Finding gas bubbles in electrolyzers with 90% fewer sensors <span aria-hidden="true">↗</span></a></h3>
+					<p>Reconstructed conductivity maps of a hydrogen electrolyzer model from magnetic-field sensors with invertible neural networks (FrEIA, tuned with Optuna). Compared PCA, simulated annealing, genetic algorithms and k-means clustering for sensor selection: k-means kept 10 of the 100 sensors at about 1.5% higher loss, and the model still located the bubbles.</p>
 				</article>
 				<article class="record">
 					<p class="record-meta">Indian patent, granted Feb 2024</p>
@@ -328,6 +342,16 @@
 					<h3>Rising Star Award, L&amp;T Technology Services</h3>
 					<p>For outstanding performance in the 2021 to 22 financial year. Earlier, an On the Spot Recognition Award at the Spaceport America Cup 2019 for the launch vehicle design, and a Recognition of Leadership Award at Manipal for leading thrustMIT's team of 24 as Mechanical Head and Deputy Project Manager.</p>
 				</article>
+				<article class="record">
+					<p class="record-meta">Public code</p>
+					<h3><a href="https://github.com/Arjun-Sivasankar">More on GitHub <span aria-hidden="true">↗</span></a></h3>
+					<ul class="repo-list">
+						<li><a href="https://github.com/Arjun-Sivasankar/MasterThesis">MasterThesis</a> Knowledge-graph diagnosis prediction on MIMIC-IV.</li>
+						<li><a href="https://github.com/Arjun-Sivasankar/MA-CDH">MA-CDH</a> Multi-agent medical consultation in LangGraph, with a router, domain specialists and consensus building.</li>
+						<li><a href="https://github.com/Arjun-Sivasankar/VoiceAgent">VoiceAgent</a> Low-latency speech-to-speech voice agent with reproducible TTS benchmarks.</li>
+						<li><a href="https://github.com/Arjun-Sivasankar/AIP">AIP</a> Neural predictors of memory-access intervals, the code behind the IEEE paper.</li>
+					</ul>
+				</article>
 			</div>
 		</div>
 	</section>
@@ -340,13 +364,14 @@
 			</header>
 
 			<div class="kit">
-				<div class="kit-group"><h3>LLMs and agents</h3><ul class="tags"><li>LoRA fine-tuning</li><li>Hugging Face PEFT</li><li>Prompt engineering</li><li>LangGraph</li><li>Multi-agent systems</li><li>MCP</li><li>Azure OpenAI</li><li>Claude API</li></ul></div>
-				<div class="kit-group"><h3>Retrieval and evaluation</h3><ul class="tags"><li>RAG</li><li>Qdrant hybrid search</li><li>Cross-encoder reranking</li><li>FAISS</li><li>RAGAS</li><li>LLM-as-judge</li><li>A/B testing</li><li>Langfuse</li><li>MLflow</li><li>Weights &amp; Biases</li></ul></div>
-				<div class="kit-group"><h3>Serving and infrastructure</h3><ul class="tags"><li>vLLM</li><li>SGLang</li><li>On-premise GPU inference</li><li>Docker</li><li>Kubernetes</li><li>Terraform</li><li>GitLab CI</li><li>GitHub</li><li>AWS</li><li>Azure AI Foundry</li><li>SLURM</li><li>PyTorch DDP</li></ul></div>
-				<div class="kit-group"><h3>Speech and documents</h3><ul class="tags"><li>Whisper</li><li>NVIDIA Parakeet</li><li>Speaker diarization</li><li>Text to speech</li><li>OCR</li></ul></div>
-				<div class="kit-group"><h3>Machine learning and data</h3><ul class="tags"><li>Python</li><li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>pandas</li><li>NumPy</li><li>SQL</li><li>Time-series forecasting</li><li>NLP</li><li>Knowledge graphs</li><li>Quantization-aware training</li></ul></div>
-				<div class="kit-group"><h3>Product engineering</h3><ul class="tags"><li>TypeScript</li><li>React</li><li>Next.js</li><li>REST APIs</li><li>Microservices</li><li>Async Python</li><li>pytest</li><li>PostgreSQL</li><li>Supabase with RLS</li><li>Redis</li><li>Claude Code</li></ul></div>
-				<div class="kit-group kit-group--wide"><h3>Regulated software</h3><ul class="tags"><li>EU MDR</li><li>IEC 62304</li><li>ISO 13485</li><li>EU AI Act</li><li>GDPR</li></ul><p>The part that decides whether a model is allowed to ship.</p></div>
+				<div class="kit-group"><h3>LLMs and agents</h3><ul class="tags"><li>LangGraph</li><li>LangChain</li><li>Multi-agent systems</li><li>MCP tool calling</li><li>Prompt engineering</li><li>LoRA fine-tuning</li><li>Hugging Face PEFT</li><li>Unsloth</li><li>Azure OpenAI</li><li>Claude API</li></ul></div>
+				<div class="kit-group"><h3>Retrieval and evaluation</h3><ul class="tags"><li>RAG</li><li>Qdrant hybrid search</li><li>Cross-encoder reranking</li><li>FAISS</li><li>Rule-based checks</li><li>RAGAS</li><li>LLM-as-judge</li><li>A/B testing</li><li>Langfuse</li><li>MLflow</li><li>Weights &amp; Biases</li></ul></div>
+				<div class="kit-group"><h3>Serving and infrastructure</h3><ul class="tags"><li>vLLM</li><li>SGLang</li><li>On-premise GPU inference</li><li>Docker</li><li>Kubernetes</li><li>Terraform</li><li>GitLab CI</li><li>GitHub</li><li>Git LFS</li><li>AWS</li><li>Azure AI Foundry</li><li>Linux</li><li>SLURM</li><li>PyTorch DDP</li></ul></div>
+				<div class="kit-group"><h3>Speech and documents</h3><ul class="tags"><li>NVIDIA Parakeet</li><li>NeMo</li><li>Whisper</li><li>Speaker diarization</li><li>Qwen3-TTS</li><li>CosyVoice 2</li><li>OCR</li><li>Azure AI Document Intelligence</li><li>Pydantic extraction</li></ul></div>
+				<div class="kit-group"><h3>Machine learning and data</h3><ul class="tags"><li>Python</li><li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>XGBoost</li><li>LightGBM</li><li>pandas</li><li>NumPy</li><li>SQL</li><li>Optuna</li><li>Time-series forecasting</li><li>NLP</li><li>Clustering</li><li>Knowledge graphs</li><li>Quantization-aware training</li></ul></div>
+				<div class="kit-group"><h3>Product engineering</h3><ul class="tags"><li>Python (async)</li><li>FastAPI</li><li>REST APIs</li><li>Microservices</li><li>TypeScript</li><li>React</li><li>Next.js</li><li>PostgreSQL</li><li>Supabase with RLS</li><li>Redis</li><li>pytest</li></ul></div>
+				<div class="kit-group"><h3>Workflows and coding agents</h3><ul class="tags"><li>n8n</li><li>Azure Logic Apps</li><li>Claude Code</li><li>Codex</li><li>OpenCode</li></ul></div>
+				<div class="kit-group"><h3>Regulated software</h3><ul class="tags"><li>ISO 14971</li><li>IEC 62304</li><li>ISO 13485</li><li>EU MDR</li><li>EU AI Act</li><li>GDPR</li></ul><p>The part that decides whether a model is allowed to ship.</p></div>
 			</div>
 		</div>
 	</section>
@@ -360,12 +385,12 @@
 
 			<div class="records">
 				<article class="record">
-					<p class="record-meta">TU Dresden, 2022 to 2026, grade 1.7</p>
+					<p class="record-meta">TU Dresden, Oct 2022 to Jan 2026, grade 1.7</p>
 					<h3>M.Sc. Computational Modeling and Simulation</h3>
-					<p>Computational Engineering track, focused on machine learning, deep learning and data science. Thesis at ScaDS.AI on knowledge-graph and neuro-symbolic diagnosis prediction, shown above under selected work.</p>
+					<p>Computational Engineering track, focused on machine learning, deep learning and data science. Thesis at ScaDS.AI on knowledge-graph and neuro-symbolic diagnosis prediction, shown above under selected work, and a research project on invertible neural networks for sensor reduction.</p>
 				</article>
 				<article class="record">
-					<p class="record-meta">Manipal Institute of Technology, 2016 to 2020, CGPA 8.81 of 10</p>
+					<p class="record-meta">Manipal Institute of Technology, Sep 2016 to Aug 2020, CGPA 8.81 of 10</p>
 					<h3>B.Tech. Mechanical Engineering</h3>
 					<p>Minor in Machine Design. Thesis on optimizing engine emissions with numerical modelling, design of experiments and machine learning.</p>
 				</article>
