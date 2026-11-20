@@ -317,6 +317,28 @@
 		update();
 	}
 
+	/* ------------------------------------------------------------ films */
+
+	Array.prototype.forEach.call(document.querySelectorAll('[data-film]'), function (button) {
+		var dialog = document.getElementById('film-' + button.getAttribute('data-film'));
+		if (!dialog || typeof dialog.showModal !== 'function') { return; }
+		var film = dialog.querySelector('video');
+		var close = dialog.querySelector('.film-close');
+
+		button.addEventListener('click', function () {
+			dialog.showModal();
+			if (film) { play(film); }
+		});
+		if (close) { close.addEventListener('click', function () { dialog.close(); }); }
+		dialog.addEventListener('click', function (event) {
+			if (event.target === dialog) { dialog.close(); }
+		});
+		dialog.addEventListener('close', function () {
+			if (film) { film.pause(); }
+			button.focus();
+		});
+	});
+
 	/* ------------------------------------------------------------ year */
 
 	var year = document.getElementById('year');
