@@ -255,6 +255,9 @@ h3 {
 .btn-light { background: var(--ink); color: var(--paper); }
 .btn-light:hover { transform: translateY(-1px); background: #fff; }
 
+.btn-line { border: 1px solid var(--line); color: var(--ink); }
+.btn-line:hover { transform: translateY(-1px); border-color: var(--ink); }
+
 .link-arrow {
 	display: inline-flex;
 	align-items: center;
