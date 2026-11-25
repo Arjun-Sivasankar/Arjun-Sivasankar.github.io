@@ -8,7 +8,9 @@ Plain HTML, one stylesheet, one script. No framework, no build step, no package 
 
 1. **Intro and hero**: a short portrait reel plays full screen once per browser session (skippable, never under reduced motion), then hands over to the hero, where the same reel sits in a studio-grey spotlight.
 2. **Selected work**: four case studies, each with a live system diagram. The diagrams are inline SVG: an amber packet travels the real pipeline, each stage lights up as it arrives, and a caption narrates the stage. They only run while on screen.
-3. **Also shipped**, **Experience** (a timeline whose rail fills as you scroll), **Research and recognition**, **Toolkit**, **Education**, **Contact**.
+3. **Also shipped**, **Experience** (newest first, a timeline whose rail fills as you scroll), **Research and recognition**.
+4. **The stack**: a cross-section of one system, from the interface down to the GPUs. Each layer lists its tools, where it was shipped and one proof figure; a request packet travels down the rail as you scroll and lights each layer it reaches. Evaluation and compliance sit beside it as the spine around every layer.
+5. **Education**, **Contact**.
 
 ## Layout
 
@@ -16,7 +18,7 @@ Plain HTML, one stylesheet, one script. No framework, no build step, no package 
 | --- | --- |
 | `index.html` | The whole page, including the four diagram SVGs |
 | `assets/css/site.css` | All styling, including print and reduced-motion rules |
-| `assets/js/site.js` | Progressive enhancement: intro, hero reel, diagrams, current-section marker, timeline rail |
+| `assets/js/site.js` | Progressive enhancement: intro, hero reel, diagrams, current-section marker, timeline rail, stack packet |
 | `assets/fonts/` | Schibsted Grotesk, self-hosted (no Google Fonts request, which matters under GDPR) |
 | `assets/video/reel.mp4` | The portrait reel |
 | `assets/img/` | Reel poster frames, portrait, social card, touch icon, raster favicon |

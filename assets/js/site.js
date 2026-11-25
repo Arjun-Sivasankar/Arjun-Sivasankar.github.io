@@ -288,6 +288,31 @@
 		});
 	}
 
+	/* ------------------------------------------------------------ stack cross-section */
+
+	var strata = document.querySelector('[data-strata]');
+
+	if (strata) {
+		var list = strata.querySelector('.strata-list');
+		var layers = Array.prototype.slice.call(strata.querySelectorAll('.stratum'));
+		var stackPending = false;
+		var updateStack = function () {
+			stackPending = false;
+			var box = list.getBoundingClientRect();
+			var mark = window.innerHeight * 0.55;
+			var p = Math.min(1, Math.max(0, (mark - box.top) / box.height));
+			strata.style.setProperty('--p', p.toFixed(4));
+			layers.forEach(function (layer) {
+				layer.classList.toggle('is-lit', layer.getBoundingClientRect().top + 30 < mark);
+			});
+		};
+		window.addEventListener('scroll', function () {
+			if (!stackPending) { stackPending = true; window.requestAnimationFrame(updateStack); }
+		}, { passive: true });
+		window.addEventListener('resize', updateStack);
+		updateStack();
+	}
+
 	/* ------------------------------------------------------------ timeline rail */
 
 	var timeline = document.querySelector('.timeline');

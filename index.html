@@ -20,7 +20,7 @@
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/SchibstedGrotesk.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="/assets/css/site.css?v=14">
+<link rel="stylesheet" href="/assets/css/site.css?v=15">
 <script>document.documentElement.className += ' js';</script>
 </head>
 <body>
@@ -44,7 +44,7 @@
 			<a href="#work">Work</a>
 			<a href="#path">Experience</a>
 			<a href="#research">Research</a>
-			<a href="#toolkit">Toolkit</a>
+			<a href="#stack">Stack</a>
 			<a href="#education">Education</a>
 		</nav>
 		<a class="btn btn-light" href="mailto:arjun.sivasankar@gmail.com">Get in touch <span aria-hidden="true">↗</span></a>
@@ -56,7 +56,7 @@
 	<section class="hero">
 		<div class="shell hero-grid">
 			<div class="hero-copy">
-				<p class="hero-tag"><span class="dot" aria-hidden="true"></span>AI engineer, in practice</p>
+				<p class="hero-tag"><span class="dot" aria-hidden="true"></span>AI engineer for systems that handle sensitive data</p>
 				<h1>I build AI that runs where the <em>data lives</em>.</h1>
 				<p class="lede">Agents, retrieval and speech systems served on your own GPUs and evaluated hard enough to ship, from the model to the interface someone actually uses.</p>
 				<div class="hero-actions">
@@ -81,7 +81,7 @@
 	<section class="section section--statement" aria-labelledby="principle-title">
 		<div class="shell split">
 			<h2 class="statement" id="principle-title">Most AI fails in production for reasons that have nothing to do with the model.</h2>
-			<p class="prose">Latency, evaluation, data leaving the building, a validation layer that satisfies a regulator. That is the work. I have spent the last three years on it: fine-tuning and serving open-weight models on our own GPUs, building retrieval that answers in under a second, and wrapping patient-facing agents in a layer that checks what they generate.</p>
+			<p class="prose">Latency, evaluation, data leaving the building, a validation layer that satisfies a regulator. That is the work I do: fine-tuning and serving open-weight models on our own GPUs, building retrieval that answers in under a second, and wrapping patient-facing agents in a layer that checks what they generate.</p>
 		</div>
 	</section>
 
@@ -220,7 +220,7 @@
 						<li>Graph paths lifted micro-F1 from 0.459 to 0.503 (+9.7%) on Llama-3.1-8B, and rare-code F1 by 26% to 46%.</li>
 						<li>Generating text and grounding it with SapBERT and FAISS beat generating codes directly by about 0.20 micro-F1.</li>
 						<li>Cohort features built from structured events and clinical notes under strict leakage control.</li>
-						<li>Trained with PyTorch DDP on 8 NVIDIA H100 GPUs under SLURM on the TU Dresden HPC cluster, tracked in Weights &amp; Biases.</li>
+						<li>Trained with PyTorch DDP on 3 NVIDIA H100 GPUs under SLURM on the TU Dresden HPC cluster, tracked in Weights &amp; Biases.</li>
 					</ul>
 					<ul class="tags" aria-label="Stack">
 						<li>Llama 3.1</li><li>Hugging Face PEFT</li><li>UMLS</li><li>SapBERT</li><li>FAISS</li><li>PyTorch DDP</li>
@@ -280,24 +280,14 @@
 		<div class="shell split split--head">
 			<header class="section-head section-head--sticky">
 				<p class="label">Experience</p>
-				<h2 id="path-title">From engine emissions to agents that speak.</h2>
+				<h2 id="path-title">Five roles, each one closer to production.</h2>
 			</header>
 
 			<ol class="timeline">
 				<li>
-					<p class="when"><time datetime="2020-01">Jan 2020</time> to <time datetime="2020-05">May 2020</time></p>
-					<h3>Automotive Research Intern <span>Gannet Engineering, Bangalore</span></h3>
-					<p>Bachelor's thesis. Planned engine test points with design of experiments and built regression and machine-learning models of NOx and soot emissions, including XGBoost and LightGBM. The selected model met the target of under 10% prediction error, and the NOx and soot trade-off was then optimized in Cal-G.</p>
-				</li>
-				<li>
-					<p class="when"><time datetime="2021-01">Jan 2021</time> to <time datetime="2022-08">Aug 2022</time></p>
-					<h3>Associate Engineer, then Engineer <span>L&amp;T Technology Services</span></h3>
-					<p>Wrote a Python network-analysis tool that built Design Structure Matrices from correlation data, classifying wind-turbine interfaces by criticality. Delivered work for the client Vestas in Denmark across time zones, carried out FMEA, and automated Windchill PLM data extraction with Selenium, validated in Power BI.</p>
-				</li>
-				<li>
-					<p class="when"><time datetime="2023-05">May 2023</time> to <time datetime="2024-10">Oct 2024</time></p>
-					<h3>Student Research Assistant <span>Vodafone Chair Mobile Communication Systems, TU Dresden</span></h3>
-					<p>PyTorch models that forecast memory-access intervals in hardware accelerators from time-series data, and quantization-aware training below 8 bits. Co-authored the IEEE ACDSA 2024 paper.</p>
+					<p class="when"><time datetime="2026-03">Mar 2026</time> to <time datetime="2026-11">Nov 2026</time></p>
+					<h3>AI Engineer <span>Docs4D, healthcare AI, Trier</span></h3>
+					<p>Self-hosted LLMs, retrieval, agents, voice and OCR for regulated clinical products: SuperDoc, piloted with a university hospital, plus MedScribe, DocScan and Frontline.</p>
 				</li>
 				<li>
 					<p class="when"><time datetime="2024-11">Nov 2024</time> to <time datetime="2025-09">Sep 2025</time></p>
@@ -305,9 +295,19 @@
 					<p>Six months as an intern, then five as a student assistant. LLM agents and MCP servers with enterprise customers on Azure OpenAI and Azure AI Foundry, multi-agent architectures for Vodafone Assist, an invoice extraction workflow, and the on-premise 6G-HEALTH transcription service.</p>
 				</li>
 				<li>
-					<p class="when"><time datetime="2026-03">Mar 2026</time> to <time datetime="2026-11">Nov 2026</time></p>
-					<h3>AI Engineer <span>Docs4D, healthcare AI, Trier</span></h3>
-					<p>Self-hosted LLMs, retrieval, agents, voice and OCR for regulated clinical products: SuperDoc, piloted with a university hospital, plus MedScribe, DocScan and Frontline.</p>
+					<p class="when"><time datetime="2023-05">May 2023</time> to <time datetime="2024-10">Oct 2024</time></p>
+					<h3>Student Research Assistant <span>Vodafone Chair Mobile Communication Systems, TU Dresden</span></h3>
+					<p>PyTorch models that forecast memory-access intervals in hardware accelerators from time-series data, and quantization-aware training below 8 bits. Co-authored the IEEE ACDSA 2024 paper.</p>
+				</li>
+				<li>
+					<p class="when"><time datetime="2021-01">Jan 2021</time> to <time datetime="2022-08">Aug 2022</time></p>
+					<h3>Associate Engineer, then Engineer <span>L&amp;T Technology Services</span></h3>
+					<p>Wrote a Python network-analysis tool that built Design Structure Matrices from correlation data, classifying wind-turbine interfaces by criticality. Delivered work for the client Vestas in Denmark across time zones, carried out FMEA, and automated Windchill PLM data extraction with Selenium, validated in Power BI.</p>
+				</li>
+				<li>
+					<p class="when"><time datetime="2020-01">Jan 2020</time> to <time datetime="2020-05">May 2020</time></p>
+					<h3>Automotive Research Intern <span>Gannet Engineering, Bangalore</span></h3>
+					<p>Bachelor's thesis. Planned engine test points with design of experiments and built regression and machine-learning models of NOx and soot emissions, including XGBoost and LightGBM. The selected model met the target of under 10% prediction error, and the NOx and soot trade-off was then optimized in Cal-G.</p>
 				</li>
 			</ol>
 		</div>
@@ -360,23 +360,63 @@
 		</div>
 	</section>
 
-	<section class="section" id="toolkit" aria-labelledby="toolkit-title">
+	<section class="section section--stack" id="stack" aria-labelledby="stack-title">
 		<div class="shell">
 			<header class="section-head">
-				<p class="label">Toolkit</p>
-				<h2 id="toolkit-title">What I reach for, grouped the way the work comes.</h2>
+				<p class="label">The stack</p>
+				<h2 id="stack-title">Every layer between a patient's question and the GPU.</h2>
+				<p class="prose">Most teams split this across five roles. At Docs4D, a team of four engineers, I owned most of the AI work, so I have built each of these layers myself. Scroll, and follow a request down through them.</p>
 			</header>
 
-			<div class="kit">
-				<div class="kit-group"><h3>LLMs and agents</h3><ul class="tags"><li>LangGraph</li><li>LangChain</li><li>Multi-agent systems</li><li>MCP tool calling</li><li>Prompt engineering</li><li>LoRA fine-tuning</li><li>Hugging Face PEFT</li><li>Unsloth</li><li>Azure OpenAI</li><li>Claude API</li></ul></div>
-				<div class="kit-group"><h3>Retrieval and evaluation</h3><ul class="tags"><li>RAG</li><li>Qdrant hybrid search</li><li>Cross-encoder reranking</li><li>FAISS</li><li>Rule-based checks</li><li>RAGAS</li><li>LLM-as-judge</li><li>A/B testing</li><li>Langfuse</li><li>MLflow</li><li>Weights &amp; Biases</li></ul></div>
-				<div class="kit-group"><h3>Serving and infrastructure</h3><ul class="tags"><li>vLLM</li><li>SGLang</li><li>On-premise GPU inference</li><li>Docker</li><li>Kubernetes</li><li>Terraform</li><li>GitLab CI</li><li>GitHub</li><li>Git LFS</li><li>AWS</li><li>Azure AI Foundry</li><li>Linux</li><li>SLURM</li><li>PyTorch DDP</li></ul></div>
-				<div class="kit-group"><h3>Speech and documents</h3><ul class="tags"><li>NVIDIA Parakeet</li><li>NeMo</li><li>Whisper</li><li>Speaker diarization</li><li>Qwen3-TTS</li><li>CosyVoice 2</li><li>OCR</li><li>Azure AI Document Intelligence</li><li>Pydantic extraction</li></ul></div>
-				<div class="kit-group"><h3>Machine learning and data</h3><ul class="tags"><li>Python</li><li>PyTorch</li><li>TensorFlow</li><li>scikit-learn</li><li>XGBoost</li><li>LightGBM</li><li>pandas</li><li>NumPy</li><li>SQL</li><li>Optuna</li><li>Time-series forecasting</li><li>NLP</li><li>Clustering</li><li>Knowledge graphs</li><li>Quantization-aware training</li></ul></div>
-				<div class="kit-group"><h3>Product engineering</h3><ul class="tags"><li>Python (async)</li><li>FastAPI</li><li>REST APIs</li><li>Microservices</li><li>TypeScript</li><li>React</li><li>Next.js</li><li>PostgreSQL</li><li>Supabase with RLS</li><li>Redis</li><li>pytest</li></ul></div>
-				<div class="kit-group"><h3>Workflows and coding agents</h3><ul class="tags"><li>n8n</li><li>Azure Logic Apps</li><li>Claude Code</li><li>Codex</li><li>OpenCode</li></ul></div>
-				<div class="kit-group"><h3>Regulated software</h3><ul class="tags"><li>ISO 14971</li><li>IEC 62304</li><li>ISO 13485</li><li>EU MDR</li><li>EU AI Act</li><li>GDPR</li></ul><p>The part that decides whether a model is allowed to ship.</p></div>
+			<div class="strata" data-strata>
+				<div class="strata-rail" aria-hidden="true"><span class="strata-packet"></span></div>
+
+				<ol class="strata-list">
+					<li class="stratum">
+						<div class="stratum-head"><h3>Interface</h3><p>What patients and clinicians actually touch.</p></div>
+						<ul class="stratum-tools"><li>Next.js</li><li>React</li><li>TypeScript</li><li>Guardian iOS and Android app</li><li>Streamlit</li></ul>
+						<div class="stratum-proof"><p class="where">Docs4D</p><p>Frontline dashboard, voice agent in the Guardian app</p></div>
+					</li>
+					<li class="stratum">
+						<div class="stratum-head"><h3>Voice and documents</h3><p>Hearing, speaking and reading, live.</p></div>
+						<ul class="stratum-tools"><li>NVIDIA Parakeet</li><li>NeMo</li><li>Whisper</li><li>Speaker diarization</li><li>Qwen3-TTS</li><li>CosyVoice 2</li><li>PaddleOCR-VL</li><li>Azure AI Document Intelligence</li></ul>
+						<div class="stratum-proof"><p class="where">Docs4D, Vodafone</p><p><strong>About 1.5 s</strong> from spoken question to spoken answer</p></div>
+					</li>
+					<li class="stratum">
+						<div class="stratum-head"><h3>Agents</h3><p>Deciding what to do and which tool to call.</p></div>
+						<ul class="stratum-tools"><li>LangGraph</li><li>Multi-agent systems</li><li>MCP tool calling</li><li>Structured output</li><li>Pydantic</li><li>Azure OpenAI</li><li>Azure AI Foundry</li><li>Claude API</li><li>LangChain</li></ul>
+						<div class="stratum-proof"><p class="where">Docs4D, Vodafone</p><p>SuperDoc, piloted with a university hospital; enterprise agents</p></div>
+					</li>
+					<li class="stratum">
+						<div class="stratum-head"><h3>Retrieval</h3><p>Finding the evidence an answer must cite.</p></div>
+						<ul class="stratum-tools"><li>Qdrant hybrid search</li><li>Cross-encoder reranking</li><li>Hierarchical chunking</li><li>FAISS</li><li>SapBERT</li><li>UMLS knowledge graph</li></ul>
+						<div class="stratum-proof"><p class="where">Docs4D, thesis</p><p><strong>Under 1 s</strong> retrieval with no loss in context recall</p></div>
+					</li>
+					<li class="stratum">
+						<div class="stratum-head"><h3>Models</h3><p>Training and adapting them to the domain.</p></div>
+						<ul class="stratum-tools"><li>LoRA</li><li>Hugging Face PEFT</li><li>Unsloth</li><li>PyTorch</li><li>PyTorch DDP</li><li>Quantization-aware training</li><li>XGBoost</li><li>LightGBM</li><li>Invertible neural networks</li></ul>
+						<div class="stratum-proof"><p class="where">Docs4D, thesis, TU Dresden</p><p><strong>+9.7%</strong> micro-F1 from knowledge-graph paths</p></div>
+					</li>
+					<li class="stratum">
+						<div class="stratum-head"><h3>Serving and infrastructure</h3><p>Running it on hardware we control.</p></div>
+						<ul class="stratum-tools"><li>vLLM</li><li>SGLang</li><li>In-house NVIDIA GPUs</li><li>Docker</li><li>Kubernetes</li><li>Terraform</li><li>FastAPI</li><li>Supabase with RLS</li><li>Redis</li><li>GitLab CI</li><li>SLURM</li><li>AWS</li><li>Azure</li></ul>
+						<div class="stratum-proof"><p class="where">Docs4D, thesis</p><p>Patient data never left our own infrastructure</p></div>
+					</li>
+				</ol>
+
+				<aside class="spine" aria-labelledby="spine-title">
+					<h3 id="spine-title">Evaluation and compliance, around every layer</h3>
+					<ul class="stratum-tools"><li>RAGAS</li><li>LLM-as-judge</li><li>A/B testing</li><li>Rule-based validation</li><li>Langfuse</li><li>MLflow</li><li>Weights &amp; Biases</li><li>pytest</li></ul>
+					<ul class="stratum-tools stratum-tools--reg"><li>ISO 14971</li><li>IEC 62304</li><li>ISO 13485</li><li>EU MDR</li><li>EU AI Act</li><li>GDPR</li></ul>
+					<p>The part that decides whether a model is allowed to ship.</p>
+				</aside>
 			</div>
+
+			<dl class="also-daily">
+				<div><dt>Data science</dt><dd>Python, SQL, pandas, NumPy, scikit-learn, statsmodels, Optuna, clustering, time-series forecasting, Power BI</dd></div>
+				<div><dt>Workflows</dt><dd>n8n, Azure Logic Apps, Git LFS for versioned training data, Langfuse prompt management</dd></div>
+				<div><dt>Coding agents, daily</dt><dd>Claude Code, Codex, OpenCode</dd></div>
+			</dl>
 		</div>
 	</section>
 
@@ -441,12 +481,12 @@
 			<a href="#work">Work</a>
 			<a href="#path">Experience</a>
 			<a href="#research">Research</a>
-			<a href="#toolkit">Toolkit</a>
+			<a href="#stack">Stack</a>
 			<a href="#education">Education</a>
 		</nav>
 	</div>
 </footer>
 
-<script src="/assets/js/site.js?v=13" defer></script>
+<script src="/assets/js/site.js?v=14" defer></script>
 </body>
 </html>
